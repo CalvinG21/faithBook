@@ -19,7 +19,7 @@ let Home=()=>{
     
     
     // Initial dummy data
-    var HOST = window.location.origin.replace(/^http/, 'ws');
+    var HOST = location.origin.replace(/^http/, 'ws');
     const socket = io(HOST); //http://10.0.0.149:3001
     //process.env.REACT_APP_SERVER_URL
     useEffect(() => {

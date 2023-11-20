@@ -284,12 +284,12 @@ const booksOfBible =[
 
 if (process.env.NODE_ENV === 'production') {
     console.log(__dirname);
-    let frontendPath = path.join(__dirname, '../frontend/faith-book-frontend/build');
+    let frontendPath = path.join(__dirname, 'build');
     console.log(frontendPath);
     app.use(express.static(frontendPath));
 
     app.get('/', (req, res) => {
-        res.sendFile(path.join(__dirname, '../frontend/faith-book-frontend/build/index.html'));
+        res.sendFile(path.join(__dirname, 'build/index.html'));
         console.log("hava hava");
     });
 }
@@ -413,9 +413,9 @@ app.get("/dailyBibleChapter",(req,res)=>{
     res.status(200).json({ data: cachedData });
 })
 
-app.get("*",(req,res)=>{
-     res.status(404).json({ data: 'Resource not found' });
-})
+// app.get("*",(req,res)=>{
+//      res.status(404).json({ data: 'Resource not found' });
+// })
 
 app.post("*",(req,res)=>{
   res.sendFile(path.join(__dirname, 'build/index.html'));   
