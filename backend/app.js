@@ -282,29 +282,29 @@ const booksOfBible =[
   }
 ] 
 
-//if in production deployment
-// if (process.env.NODE_ENV === 'production'){
-//     console.log(__dirname)
-//     //app.use(express.static(path.join(__dirname, 'frontend/build')));
-//     app.use(express.static( '../frontend/build'));
-//     app.get('/',(req,res)=> {
-//       //res.sendFile(path.resolve(__dirname,'frontend', 'build','index.html'));
-//       res.sendFile('../frontend/build/index.html');
-//       console.log("hava hava")
-//     });
-// }
-
 if (process.env.NODE_ENV === 'production') {
     console.log(__dirname);
-    let p=path.join(__dirname, 'build')
-    console.log(p)
-    app.use(express.static(p));
+    let frontendPath = path.join(__dirname, '../frontend/faith-book-frontend/build');
+    console.log(frontendPath);
+    app.use(express.static(frontendPath));
 
     app.get('/', (req, res) => {
-        res.sendFile(path.join(__dirname, 'build/index.html'));
+        res.sendFile(path.join(__dirname, '../frontend/faith-book-frontend/build/index.html'));
         console.log("hava hava");
     });
 }
+
+// if (process.env.NODE_ENV === 'production') {
+//     console.log(__dirname);
+//     let p=path.join(__dirname, 'build')
+//     console.log(p)
+//     app.use(express.static(p));
+
+//     app.get('/', (req, res) => {
+//         res.sendFile(path.join(__dirname, 'build/index.html'));
+//         console.log("hava hava");
+//     });
+// }
 
 
 // Schedule the task to run every day at 11 59 PM
@@ -418,7 +418,8 @@ app.get("*",(req,res)=>{
 })
 
 app.post("*",(req,res)=>{
-     res.status(404).json({ data: 'Resource not found' });
+  res.sendFile(path.join(__dirname, 'build/index.html'));   
+  //res.status(404).json({ data: 'Resource not found' });
 })
 
 
