@@ -417,7 +417,7 @@ app.get("/dailyBibleChapter",(req,res)=>{
 //      res.status(404).json({ data: 'Resource not found' });
 // })
 
-app.post("*",(req,res)=>{
+app.get("*",(req,res)=>{
   res.sendFile(path.join(__dirname, 'build/index.html'));   
   //res.status(404).json({ data: 'Resource not found' });
 })
