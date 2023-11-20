@@ -109,9 +109,9 @@ let Home=()=>{
 
     return(<>
         <Container className='mt-5'>
-            <Row className='mt-5'>
+            <Row className='mt-5'style={{display: userData.role=="general"?"none":""}}>
                 <Col md={{ span: 10, offset: 1 }}>
-                <DailyScripture bibleChapter={bibleChapter}></DailyScripture>
+                    <DailyScripture bibleChapter={bibleChapter}></DailyScripture>
                 </Col>
             </Row>
             <Row className='mt-5'>
