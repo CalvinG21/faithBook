@@ -320,14 +320,15 @@ cron.schedule('59 23 * * *', async () => {
 
 let getDailyBibleChapter=async(sendToFrontend=true)=>{
   console.log("getDailyBibleChapter() ")
+  const apiHeaders={
+        'X-RapidAPI-Key': process.env.X_RapidAPI_Key,//'4eaa05faa3mshc509b8103dd269ep1731e6jsnda75783619ba',
+        'X-RapidAPI-Host': process.env.X_RapidAPI_Host,//'iq-bible.p.rapidapi.com'
+      }
   const options = {
       method: 'GET',
       url: 'https://iq-bible.p.rapidapi.com/GetRandomChapter',
       params: {versionId: 'kjv'},
-      headers: {
-        'X-RapidAPI-Key': '4eaa05faa3mshc509b8103dd269ep1731e6jsnda75783619ba',
-        'X-RapidAPI-Host': 'iq-bible.p.rapidapi.com'
-      }
+      headers: apiHeaders
   };
   const options2 = {
       method: 'GET',
@@ -337,10 +338,7 @@ let getDailyBibleChapter=async(sendToFrontend=true)=>{
         chapterId: '',
         versionId: 'kjv'
       },
-      headers: {
-        'X-RapidAPI-Key': '4eaa05faa3mshc509b8103dd269ep1731e6jsnda75783619ba',
-        'X-RapidAPI-Host': 'iq-bible.p.rapidapi.com'
-      }
+      headers: apiHeaders
   };
 
   try {
@@ -428,7 +426,8 @@ app.get("*",(req,res)=>{
 mongoose.Promise = global.Promise;
 
 // Connect to MongoDB using Mongoose
-mongoose.connect('mongodb+srv://calvinTest:test123@cluster0.65qmcdz.mongodb.net/', {
+//mongoose.connect('mongodb+srv://calvinTest:test123@cluster0.65qmcdz.mongodb.net/', {
+mongoose.connect( process.env.mongoDbConnStr, {
     //useMongoClient: false,
 dbName: 'faithBook', // Connect to the Blogs database.
 useNewUrlParser: true,
