@@ -131,8 +131,8 @@ const suspendItem = (itemId,sus=false) => {
 
   return (
     <div>
-      <h2>Live Data Display</h2>
-       <Row className='mb-2' style={{display: userData.role!="general"?"none":""}}>
+      <h2>Live Data Displays</h2>
+       <Row className='mb-2' style={{display:userData.role!="general"?"none":""}}>
               <Col md={{ span: 10, offset: 1 }}>
                     <Button variant='success' onClick={()=>{
                         console.log("ad new $$$$$$$$$$$$")
