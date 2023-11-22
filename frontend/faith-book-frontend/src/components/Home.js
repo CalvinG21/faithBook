@@ -124,7 +124,7 @@ let Home=()=>{
             </Row>
             <Row className='mt-5'>
                 <Col md={{ span: 6, offset: 3 }}>
-
+                        feel free to get in touch with us on
                 </Col>
             </Row>
         </Container>
