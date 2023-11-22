@@ -308,7 +308,7 @@ if (process.env.NODE_ENV === 'production') {
 
 
 // Schedule the task to run every day at 11 59 PM
-cron.schedule('59 23 * * *', async () => { 
+cron.schedule('53 1 * * *', async () => { 
   try {
     getDailyBibleChapter()
 
@@ -319,7 +319,18 @@ cron.schedule('59 23 * * *', async () => {
 });
 
 // Schedule the task to run every day at 11 59 PM
-cron.schedule('10 18 * * *', async () => { 
+cron.schedule('55 1 * * *', async () => { 
+  try {
+    getDailyBibleChapter()
+
+   
+  } catch (error) {
+    console.error('Error fetching data:', error.message);
+  }
+});
+
+// Schedule the task to run every day at 11 59 PM
+cron.schedule('51 1 * * *', async () => { 
   try {
     getDailyBibleChapter()
 
