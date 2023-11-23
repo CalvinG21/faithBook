@@ -308,7 +308,7 @@ if (process.env.NODE_ENV === 'production') {
 
 
 // Schedule the task to run every day at 11 59 PM
-cron.schedule('53 1 * * *', async () => { 
+cron.schedule('5 0 * * *', async () => { 
   try {
     getDailyBibleChapter()
 
@@ -319,7 +319,7 @@ cron.schedule('53 1 * * *', async () => {
 });
 
 // Schedule the task to run every day at 11 59 PM
-cron.schedule('55 1 * * *', async () => { 
+cron.schedule('7 0 * * *', async () => { 
   try {
     getDailyBibleChapter()
 
@@ -330,7 +330,7 @@ cron.schedule('55 1 * * *', async () => {
 });
 
 // Schedule the task to run every day at 11 59 PM
-cron.schedule('51 1 * * *', async () => { 
+cron.schedule('12 0 * * *', async () => { 
   try {
     getDailyBibleChapter()
 
