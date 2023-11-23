@@ -306,9 +306,10 @@ if (process.env.NODE_ENV === 'production') {
 //     });
 // }
 
+/*Note that Heroku cloud zone is 2 hours behind us */
 
 // Schedule the task to run every day at 11 59 PM
-cron.schedule('5 0 * * *', async () => { 
+cron.schedule('15 18 * * *', async () => { 
   try {
     getDailyBibleChapter()
 
@@ -319,7 +320,7 @@ cron.schedule('5 0 * * *', async () => {
 });
 
 // Schedule the task to run every day at 11 59 PM
-cron.schedule('7 0 * * *', async () => { 
+cron.schedule('17 18 * * *', async () => { 
   try {
     getDailyBibleChapter()
 
@@ -330,7 +331,7 @@ cron.schedule('7 0 * * *', async () => {
 });
 
 // Schedule the task to run every day at 11 59 PM
-cron.schedule('12 0 * * *', async () => { 
+cron.schedule('20 18 * * *', async () => { 
   try {
     getDailyBibleChapter()
 
