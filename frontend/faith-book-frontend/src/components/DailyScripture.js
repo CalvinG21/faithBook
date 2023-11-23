@@ -2,7 +2,7 @@ import Card from 'react-bootstrap/Card';
 import { Form, Button, Col, Row, Container } from 'react-bootstrap';
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from "react-redux";
-
+import { Helmet } from 'react-helmet';
 
 let DailyScripture=(props)=>{
   console.log(props.bibleChapter)
@@ -92,7 +92,9 @@ let DailyScripture=(props)=>{
     }
 
     return (
-    <Card style={{ width: '100%' }}>
+
+      <div>
+         <Card style={{ width: '100%' }}>
       <Card.Body>
         <Card.Title className='mb-5'>Daily Bible Chapter</Card.Title>
         <Card.Subtitle className="mb-2 text-muted">
@@ -122,6 +124,14 @@ let DailyScripture=(props)=>{
     <Button onClick={stopStartAudio} id="playButton">Play</Button>
       </Card.Body>
     </Card>
+        <Helmet>
+        <meta
+          http-equiv="Content-Security-Policy"
+          content="default-src 'self'; media-src https://2-us.com;"
+        />
+      </Helmet>
+      </div>
+   
   );
 }
 
