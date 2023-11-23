@@ -151,7 +151,7 @@ const handleSelect = (selectedValue) => {
     selectedValue == "me" ?
     setJustMydata(true)
     :
-    setData(false) 
+    setJustMydata(false) 
 
   };
 
