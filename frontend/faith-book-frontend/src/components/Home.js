@@ -109,6 +109,27 @@ let Home=()=>{
 
     return(<>
         <Container className='mt-5'>
+            <header>
+                <h1>FaithBook</h1>
+            </header>
+            <Row className='mt-5'>
+                <Col md={{ span: 6, offset: 3 }}>
+                     <p>
+                        Welcome to FaithBook, where faith and community come together. 
+                        On our home page, you'll find a daily Bible reading section with audio for those who prefer listening over reading. 
+                        Scroll through the list of prayer requests and testimonies shared by users like you. 
+                        This section gets refreshed for the month, fostering a sense of community and shared spirituality.
+
+                        Additionally, we provide a personal help line for you to send messages to our team for prayer and guidance.
+                        Our team receives your messages via email and responds as promptly as possible.
+
+                        Thank you for being a part of our FaithBook community, a Christian website dedicated to fostering connections,
+                        providing support, and sharing in the journey of faith.
+                    </p>
+                </Col>
+            </Row>
+           
+
             <Row className='mt-5'style={{display: userData.role!="general"?"none":""}}>
                 <Col md={{ span: 10, offset: 1 }}>
                     <DailyScripture bibleChapter={bibleChapter}></DailyScripture>

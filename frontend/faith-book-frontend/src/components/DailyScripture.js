@@ -96,7 +96,7 @@ let DailyScripture=(props)=>{
       <div>
          <Card style={{ width: '100%' }}>
       <Card.Body>
-        <Card.Title className='mb-5'>Daily Bible Chapter</Card.Title>
+        <Card.Title className='mb-5'>Daily Bible Reading</Card.Title>
         <Card.Subtitle className="mb-2 text-muted">
           {bibleChapName1!=undefined || bibleChapName1!=null ? bibleChapName1 : "loading..." }
           </Card.Subtitle>

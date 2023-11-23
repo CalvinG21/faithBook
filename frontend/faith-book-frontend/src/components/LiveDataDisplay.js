@@ -129,9 +129,29 @@ const suspendItem = (itemId,sus=false) => {
 };
 
 
+let formatDateTime=(utcTimestamp)=> {
+  const date = new Date(utcTimestamp);
+
+  const options = {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+    second: 'numeric',
+    timeZoneName: 'short'
+  };
+
+  const formattedDate = new Intl.DateTimeFormat('en-US', options).format(date);
+  return formattedDate;
+}
+
   return (
     <div>
-      <h2>Live Data Displays</h2>
+      <h2>Prayer Requests & Testimonies</h2>
+      <p>
+            View the prayer requests and tesomonies of other users. Share in their prayer life and remember their needs in prayer. Checkout all the testomonies and boost your faith by reading through what GOD is doing in the life of fellow believers 
+      </p>
        <Row className='mb-2' style={{display:userData.role!="general"?"none":""}}>
               <Col md={{ span: 10, offset: 1 }}>
                     <Button variant='success' onClick={()=>{
@@ -147,8 +167,9 @@ const suspendItem = (itemId,sus=false) => {
             
           <ListGroup.Item key={index} style={{textAlign:'left',display: userData.role=="general"&&item.suspended?"none":""}}>
             
-            <h5><span style={{color:item.type=="PR"? "darkgreen" : "darkblue"}} >{item.type=="PR"? "Prayer Request : " : "Tesomony : "}</span> {item.title}</h5>
-            <h6 style={{color:"grey"}}>Author:{item.authorId==userData._id?"Me": item.anonymous} , Posted: {item.updatedAt}</h6>
+            <h5><span style={{color:item.type=="PR"? "darkgreen" : "darkblue"}} >{item.type=="PR"? "Prayer Request : " : "Testimony : "}</span> {item.title}</h5>
+            <h6 style={{color:"grey"}}>Author:{item.authorId==userData._id?"Me": item.anonymous}</h6>
+            <h6> Posted: {formatDateTime(item.updatedAt)}</h6>
             <p>{item.text}</p>
             {/* <p><small>likes:{item.likes}</small></p>
             
