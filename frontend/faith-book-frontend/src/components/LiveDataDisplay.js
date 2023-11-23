@@ -3,12 +3,14 @@ import React, { useState, useEffect } from 'react';
 import { ListGroup, Button } from 'react-bootstrap';
 import {   Col, Row ,} from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
+import Dropdown from 'react-bootstrap/Dropdown';
 
 const LiveDataDisplay = (props) => {
   
   const navigate = useNavigate();
 
   const [data, setData] = useState([]);
+  const [justMydata, setJustMydata] = useState(false);
    let { liveData,userData }=props; 
   useEffect(() => {
     // Update the state when new live data is received
@@ -139,12 +141,19 @@ let formatDateTime=(utcTimestamp)=> {
     hour: 'numeric',
     minute: 'numeric',
     second: 'numeric',
-    timeZoneName: 'short'
+    //timeZoneName: 'short'
   };
 
   const formattedDate = new Intl.DateTimeFormat('en-US', options).format(date);
   return formattedDate;
 }
+const handleSelect = (selectedValue) => {
+    selectedValue == "me" ?
+    setJustMydata(true)
+    :
+    setData(false) 
+
+  };
 
   return (
     <div>
@@ -153,6 +162,22 @@ let formatDateTime=(utcTimestamp)=> {
             View the prayer requests and tesomonies of other users. Share in their prayer life and remember their needs in prayer. Checkout all the testomonies and boost your faith by reading through what GOD is doing in the life of fellow believers 
       </p>
        <Row className='mb-2' style={{display:userData.role!="general"?"none":""}}>
+              <Col md={{ span: 2, offset: 1 }}>
+                     <Dropdown onSelect={handleSelect}>
+                        <Dropdown.Toggle variant="success" id="dropdown-basic">
+                            Filter
+                        </Dropdown.Toggle>
+
+                        <Dropdown.Menu>
+                            <Dropdown.Item eventKey="all">All</Dropdown.Item>
+                            <Dropdown.Item eventKey="me">Just mine</Dropdown.Item>
+                            
+                        </Dropdown.Menu>
+                    </Dropdown>
+                </Col> 
+               
+        </Row>
+        <Row className='mb-2' style={{display:userData.role!="general"?"none":""}}>
               <Col md={{ span: 10, offset: 1 }}>
                     <Button variant='success' onClick={()=>{
                         console.log("ad new $$$$$$$$$$$$")
@@ -163,21 +188,23 @@ let formatDateTime=(utcTimestamp)=> {
         </Row>
       <ListGroup>
         {console.log(data)}
-        {data.slice().reverse().map((item, index) => (
-            
-          <ListGroup.Item key={index} style={{textAlign:'left',display: userData.role=="general"&&item.suspended?"none":""}}>
-            
-            <h5><span style={{color:item.type=="PR"? "darkgreen" : "darkblue"}} >{item.type=="PR"? "Prayer Request : " : "Testimony : "}</span> {item.title}</h5>
-            <h6 style={{color:"grey"}}>Author:{item.authorId==userData._id?"Me": item.anonymous}</h6>
-            <h6> Posted: {formatDateTime(item.updatedAt)}</h6>
-            <p>{item.text}</p>
-            {/* <p><small>likes:{item.likes}</small></p>
-            
-            <Button style={{display:showFunc(item,false)}} variant="primary" >Like</Button>{' '} */}
-            <Button style={{display:showFunc(item)}} variant="secondary" onClick={()=>{navToPubPostForm(item._id)}}>Edit</Button>{' '}
-            <Button style={{display:showFunc(item)}} variant="danger" onClick={()=>{deleteItem(item._id)}}>remove</Button>{' '}
-            <Button style={{display:userData.role=="general"?"none":""}} variant="primary" onClick={()=>{suspendItem(item._id,item.suspended)}} >{item.suspended?"Un-Suspend":"Suspend"}</Button>{' '}
-          </ListGroup.Item>
+        {data.filter(item => {
+                // Use filter if filterValue is not null; otherwise, return all items
+                return  justMydata== true ? item.authorId==userData._id : true;
+        }).slice().reverse().map((item, index) => (
+            <ListGroup.Item key={index} style={{textAlign:'left',display: userData.role=="general"&&item.suspended?"none":""}}>
+                
+                <h5><span style={{color:item.type=="PR"? "darkgreen" : "darkblue"}} >{item.type=="PR"? "Prayer Request : " : "Testimony : "}</span> {item.title}</h5>
+                <h6 style={{color:"grey"}}>Author:{item.authorId==userData._id?"Me": item.anonymous}</h6>
+                <h6 style={{color:"grey"}}> Posted: {formatDateTime(item.updatedAt)}</h6>
+                <p>{item.text}</p>
+                {/* <p><small>likes:{item.likes}</small></p>
+                
+                <Button style={{display:showFunc(item,false)}} variant="primary" >Like</Button>{' '} */}
+                <Button style={{display:showFunc(item)}} variant="secondary" onClick={()=>{navToPubPostForm(item._id)}}>Edit</Button>{' '}
+                <Button style={{display:showFunc(item)}} variant="danger" onClick={()=>{deleteItem(item._id)}}>remove</Button>{' '}
+                <Button style={{display:userData.role=="general"?"none":""}} variant="primary" onClick={()=>{suspendItem(item._id,item.suspended)}} >{item.suspended?"Un-Suspend":"Suspend"}</Button>{' '}
+            </ListGroup.Item>
         ))}
       </ListGroup>
     </div>

@@ -112,8 +112,8 @@ let Home=()=>{
             <header>
                 <h1>FaithBook</h1>
             </header>
-            <Row className='mt-5'>
-                <Col md={{ span: 6, offset: 3 }}>
+            <Row className='mt-2'>
+                <Col md={{ span: 8, offset: 2 }}>
                      <p>
                         Welcome to FaithBook, where faith and community come together. 
                         On our home page, you'll find a daily Bible reading section with audio for those who prefer listening over reading. 
