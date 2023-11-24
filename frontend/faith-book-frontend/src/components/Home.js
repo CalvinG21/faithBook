@@ -8,6 +8,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 // Importing the action creators we’ve implemented in our counter reducer.
 import { updateBibleChapter } from '../redux/bibleVerseUpdateStore'
+import { updateTestAndPrayerReqs } from '../redux/testomoniesAndPrayerReqs'
 
 
 let Home=()=>{
@@ -26,7 +27,7 @@ let Home=()=>{
         socket.on('mongoDbLiveUpdate', (data) => {
            //alert("New Mongo update "+JSON.stringify(data))
             setLiveData(data)
-            //setLiveData(setLiveData+1)
+            dispatch(updateTestAndPrayerReqs({testAndPrayerReqs:data}))
         });
 
         socket.on('bibleChapterUpdate', (data) => {
@@ -124,7 +125,7 @@ let Home=()=>{
                         Our team receives your messages via email and responds as promptly as possible.
 
                         Thank you for being a part of our FaithBook community, a Christian website dedicated to fostering connections,
-                        providing support, and sharing in the journey of faith.
+                        providing support, and sharing in the journey of faith. Stay Blessed!
                     </p>
                 </Col>
             </Row>

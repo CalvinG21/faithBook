@@ -4,6 +4,7 @@ import { ListGroup, Button } from 'react-bootstrap';
 import {   Col, Row ,} from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
 import Dropdown from 'react-bootstrap/Dropdown';
+import { useSelector, useDispatch } from "react-redux";
 
 const LiveDataDisplay = (props) => {
   
@@ -11,7 +12,8 @@ const LiveDataDisplay = (props) => {
 
   const [data, setData] = useState([]);
   const [justMydata, setJustMydata] = useState(false);
-   let { liveData,userData }=props; 
+   //let { liveData,userData }=props; 
+   let liveData=useSelector((state)=>state.testAndPrayerReqs.value.data)
   useEffect(() => {
     // Update the state when new live data is received
     setData(liveData);
@@ -188,7 +190,7 @@ const handleSelect = (selectedValue) => {
         </Row>
       <ListGroup>
         {console.log(data)}
-        {data.filter(item => {
+        {liveData.filter(item => {
                 // Use filter if filterValue is not null; otherwise, return all items
                 return  justMydata== true ? item.authorId==userData._id : true;
         }).slice().reverse().map((item, index) => (
