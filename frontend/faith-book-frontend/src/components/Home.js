@@ -26,7 +26,7 @@ let Home=()=>{
     useEffect(() => {
         socket.on('mongoDbLiveUpdate', (data) => {
            //alert("New Mongo update "+JSON.stringify(data))
-            setLiveData(data)
+            //setLiveData(data)
             dispatch(updateTestAndPrayerReqs({testAndPrayerReqs:data}))
             console.log("mongoDbLiveUpdate data : "+data)
         });
@@ -89,7 +89,8 @@ let Home=()=>{
             const responseData = await response.json();
             console.log('Response data:', JSON.stringify(responseData));
             //alert(JSON.stringify(responseData))
-            setLiveData(responseData.posts)
+            //setLiveData(responseData.posts)
+            dispatch(updateTestAndPrayerReqs({testAndPrayerReqs:responseData.posts}))
             // Store the token in local storage
             //localStorage.setItem('token', response.token);
             //navigate("/about");
