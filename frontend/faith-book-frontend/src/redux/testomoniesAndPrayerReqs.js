@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 let initialStateValue={
     
-    data:{}
+    data:[]
 }
 
 export const testAndPrayerReqsSlice = createSlice({

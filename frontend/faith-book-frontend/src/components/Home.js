@@ -28,6 +28,7 @@ let Home=()=>{
            //alert("New Mongo update "+JSON.stringify(data))
             setLiveData(data)
             dispatch(updateTestAndPrayerReqs({testAndPrayerReqs:data}))
+            console.log("mongoDbLiveUpdate data : "+data)
         });
 
         socket.on('bibleChapterUpdate', (data) => {
@@ -43,7 +44,7 @@ let Home=()=>{
             
             //setBibleChapter({ ...bibleChapter, ["texts"]: paragraph })
             dispatch(updateBibleChapter({bibleChap:{ ...data, texts: paragraph }}));
-   
+            
             
             //alert(JSON.stringify(data))
             console.log(JSON.stringify(data))
