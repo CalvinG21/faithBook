@@ -12,7 +12,7 @@ const LiveDataDisplay = (props) => {
 
   const [data, setData] = useState([]);
   const [justMydata, setJustMydata] = useState(false);
-   //let { liveData,userData }=props; 
+   let { userData }=props; 
    let liveData=useSelector((state)=>state.testAndPrayerReqs.value.data)
   useEffect(() => {
     // Update the state when new live data is received
