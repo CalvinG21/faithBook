@@ -16,10 +16,14 @@ let loggedIn =useSelector((state)=>state.bibleChap.value.isloggedin)
     useEffect(()=>{
       //since redux store gets reset after a pager refresh!
       //check if jwt in local storage
-      localStorage.getItem('token') != null ? dispatch(updateLoginUser({loggedIn:true})):dispatch(reset())
+      localStorage.getItem('token') != null ? 
+      dispatch(updateLoginUser({loggedIn:true})):dispatch(reset())
       //if so then set redux store var loggedIn=true
       //else then set redux store var loggedIn=false
-      
+      window.addEventListener('beforeunload', ()=>{
+        console.log("####### beforeunload  ");
+        localStorage.removeItem('token');
+      });
 
     },[loggedIn])
 

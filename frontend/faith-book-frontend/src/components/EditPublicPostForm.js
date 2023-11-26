@@ -155,8 +155,19 @@ const EditPublicPostForm = () => {
     }
    };
 
+  const handleBack = () => {
+    navigate("/home"); 
+  };
+
   return (
     <Container className="mt-5">
+      <Row className="mt-2">
+        <Col md={{ span: 1, offset: 1 }}>
+          <Button variant="secondary" onClick={handleBack}>
+            Back
+          </Button>
+        </Col>
+      </Row>
       <Row className="mt-5">
         <Col md={{ span: 4, offset: 4 }}>
           <Form

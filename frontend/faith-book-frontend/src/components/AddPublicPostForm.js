@@ -16,9 +16,6 @@ const AddPublicPostForm = () => {
     authorId:""
   });
 
-  
-  
-
   useEffect(()=>{
     let authToken=localStorage.getItem('token');
       console.log(authToken)
@@ -111,8 +108,19 @@ const AddPublicPostForm = () => {
     }
    };
 
+  const handleBack = () => {
+    navigate("/home"); 
+  };
+
   return (
     <Container className="mt-5">
+      <Row className="mt-2">
+        <Col md={{ span: 1, offset: 1 }}>
+          <Button variant="secondary" onClick={handleBack}>
+            Back
+          </Button>
+        </Col>
+      </Row>
       <Row className="mt-5">
         <Col md={{ span: 4, offset: 4 }}>
           <Form
@@ -176,28 +184,28 @@ const AddPublicPostForm = () => {
                 <Form.Label>Remain Anonymous?</Form.Label>
                 
                 {[ 'radio'].map((type) => (
-        <div key={`inline-${type}`} className="mb-3">
-          <Form.Check
-            inline
-            label="Yes"
-            name="anonymous"
-            type={type}
-            id={`rb1`}
-           value={true}
-            onChange={handleInputChange}
-          />
-          <Form.Check
-            inline
-            label="No"
-            name="anonymous"
-            type={type}
-            id={`rb2`}
-            value={false}
-            onChange={handleInputChange}
-          />
-          
-        </div>
-      ))}
+                  <div key={`inline-${type}`} className="mb-3">
+                    <Form.Check
+                      inline
+                      label="Yes"
+                      name="anonymous"
+                      type={type}
+                      id={`rb1`}
+                    value={true}
+                      onChange={handleInputChange}
+                    />
+                    <Form.Check
+                      inline
+                      label="No"
+                      name="anonymous"
+                      type={type}
+                      id={`rb2`}
+                      value={false}
+                      onChange={handleInputChange}
+                    />
+                    
+                  </div>
+                ))}
               </Form.Group>
             </Row>
             <Button type="submit">Submit</Button>
