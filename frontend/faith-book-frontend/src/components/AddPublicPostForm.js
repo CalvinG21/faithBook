@@ -114,7 +114,7 @@ const AddPublicPostForm = () => {
 
   return (
     <Container className="mt-5">
-      <Row className="mt-2">
+      <Row className="mt-1">
         <Col md={{ span: 1, offset: 1 }}>
           <Button variant="secondary" onClick={handleBack}>
             Back

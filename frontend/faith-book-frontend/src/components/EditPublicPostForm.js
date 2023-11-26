@@ -161,8 +161,8 @@ const EditPublicPostForm = () => {
 
   return (
     <Container className="mt-5">
-      <Row className="mt-2">
-        <Col md={{ span: 1, offset: 1 }}>
+      <Row className="mt-1">
+        <Col md={{ span: 1, offset: 0 }}>
           <Button variant="secondary" onClick={handleBack}>
             Back
           </Button>

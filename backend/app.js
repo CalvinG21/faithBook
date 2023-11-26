@@ -14,6 +14,9 @@ const cron = require('node-cron');
 
 let cachedData = {};
 
+const dotenv = require('dotenv');
+dotenv.config();
+
 //most api providers use this structure, maintainance required!!!
 const booksOfBible =[
   {
@@ -293,6 +296,19 @@ if (process.env.NODE_ENV === 'production') {
         console.log("hava hava");
     });
 }
+else
+{
+  console.log(__dirname);
+    let frontendPath = path.join(__dirname, 'build');
+    console.log(frontendPath);
+    app.use(express.static(frontendPath));
+
+    app.get('/', (req, res) => {
+        res.sendFile(path.join(__dirname, 'build/index.html'));
+        console.log("hava hava");
+    });
+}
+
 
 // if (process.env.NODE_ENV === 'production') {
 //     console.log(__dirname);
@@ -410,8 +426,6 @@ let getDailyBibleChapter=async(sendToFrontend=true)=>{
   }
 }
 
-//first time set up for cached data
-getDailyBibleChapter(false)
 
 const server = http.createServer(app);
 const io = require('socket.io')(server, {
@@ -507,6 +521,8 @@ mongoose.connection.once('open', function() {
      });
 
 
+//first time set up for cached data
+getDailyBibleChapter(false)
 
 
 
