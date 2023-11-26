@@ -3,12 +3,12 @@ import { Form, Button, Col, Row ,Container} from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
 
 const SignUpForm = () => {
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const navigate = useNavigate();
-  const handleSubmit = async (event) => {
+const [username, setUsername] = useState('');
+const [email, setEmail] = useState('');
+const [password, setPassword] = useState('');
+const [confirmPassword, setConfirmPassword] = useState('');
+const navigate = useNavigate();
+const handleSubmit = async (event) => {
     event.preventDefault();
 
     // Password confirmation logic
@@ -43,8 +43,9 @@ const SignUpForm = () => {
       console.log('##### sign up ##### Response data :', responseData);
       alert("Successfully signed up!")
       
-    //Store the token in local storage
-    localStorage.setItem('token', responseData.token);
+      //Store the token in local storage
+      localStorage.setItem('token', responseData.token);
+      dispatch(updateLoginUser({loggedIn:true}))
       navigate("/home");
     } 
     catch (error) {

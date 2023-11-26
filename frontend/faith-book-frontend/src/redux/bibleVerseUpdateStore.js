@@ -21,8 +21,8 @@ export const bibleChapSlice = createSlice({
         reset: (state) => {
             state.value = initialStateValue;
         }
-        
-        ,updateBibleChapter:(state,action)=>
+        ,
+        updateBibleChapter:(state,action)=>
         {
             state.value.data=  action.payload.bibleChap;
         }
