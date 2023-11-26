@@ -27,7 +27,7 @@ export const bibleChapSlice = createSlice({
             state.value.data=  action.payload.bibleChap;
         }
         ,
-        updateLoginUser:(state)=>{
+        updateLoginUser:(state,action)=>{
             state.value.isloggedin= action.payload.loggedIn;
         }
     },

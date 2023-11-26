@@ -19,10 +19,11 @@ const LoginForm = (props) => {
     
         formType==-1?
         (()=>{
-           dispatch(reset());
+           
           //remove jwt from local storage
           
           localStorage.removeItem('token');
+          dispatch(reset());
           setUsername('');
           setPassword('');
           alert("You have successfully logged out of your account") 
