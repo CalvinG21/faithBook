@@ -28,7 +28,7 @@ export const bibleChapSlice = createSlice({
         }
         ,
         updateLoginUser:(state)=>{
-            state.value.isloggedin= !state.value.isloggedin;
+            state.value.isloggedin= action.payload.loggedIn;
         }
     },
 });

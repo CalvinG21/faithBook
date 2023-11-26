@@ -20,7 +20,9 @@ const LoginForm = (props) => {
         formType==-1?
         (()=>{
            dispatch(reset());
-         
+          //remove jwt from local storage
+          
+          localStorage.removeItem('token');
           setUsername('');
           setPassword('');
           alert("You have successfully logged out of your account") 
@@ -61,7 +63,7 @@ const LoginForm = (props) => {
         alert('successfully Logged in')
         // Store the token in local storage
         localStorage.setItem('token', responseData.token);
-        dispatch(updateLoginUser())
+        dispatch(updateLoginUser({loggedIn:true}))
         navigate("/home");
       }
       

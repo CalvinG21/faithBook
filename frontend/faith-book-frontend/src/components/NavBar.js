@@ -3,11 +3,26 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import {  Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import {useDispatch, useSelector } from "react-redux";
+import React, { useState, useEffect } from 'react';
+// Importing the action creators we’ve implemented in our counter reducer.
+import { reset,updateLoginUser } from '../redux/bibleVerseUpdateStore'
 
 let NavBar=()=> {
-  let loggedIn =useSelector((state)=>state.bibleChap.value.isloggedin)
+let loggedIn =useSelector((state)=>state.bibleChap.value.isloggedin)
+    const dispatch=useDispatch();
     console.log("navBar loggedIn : "+loggedIn)
+
+    useEffect(()=>{
+      //since redux store gets reset after a pager refresh!
+      //check if jwt in local storage
+      localStorage.getItem('token') != null ? dispatch(updateLoginUser({loggedIn:true})):dispatch(reset())
+      //if so then set redux store var loggedIn=true
+      //else then set redux store var loggedIn=false
+      
+
+    },[loggedIn])
+
   return (
     <>
       {[ 'xxl'].map((expand) => (
