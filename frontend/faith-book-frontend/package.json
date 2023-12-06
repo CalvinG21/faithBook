@@ -2,7 +2,7 @@
   "name": "faith-book-frontend",
   "version": "0.1.0",
   "private": true,
-  "proxy": "https://localhost:3001/",
+  "proxy": "https://faithbook100-326aca1a7406.herokuapp.com/",
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.7",
     "@testing-library/jest-dom": "^5.17.0",

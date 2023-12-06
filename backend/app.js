@@ -558,5 +558,5 @@ const PORT = process.env.PORT || 3001;
 const HOST = '10.0.0.149'; //192.168.0.174 //10.0.0.149
 
 server.listen(PORT,  () => {
-    console.log(`express web app running on http://:${PORT}`);
+    console.log(`express web app NOW running on http://:${PORT}`);
 });
