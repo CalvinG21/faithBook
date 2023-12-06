@@ -5,10 +5,12 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import io from 'socket.io-client';
 import { useSelector, useDispatch } from "react-redux";
+import EmailFormModal from './EmailFormModal'; // Adjust the path
 
 // Importing the action creators we’ve implemented in our counter reducer.
 import { updateBibleChapter } from '../redux/bibleVerseUpdateStore'
 import { updateTestAndPrayerReqs } from '../redux/testomoniesAndPrayerReqs'
+import EmailForm from './EmailForm';
 
 
 let Home=()=>{
@@ -17,11 +19,15 @@ let Home=()=>{
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [userData, setUserData] = useState('');
-    
+    const [showModal, setShowModal] = useState(false);
+
+  const handleOpenModal = () => setShowModal(true);
+  const handleCloseModal = () => setShowModal(false);
     
     // Initial dummy data
     var HOST = location.origin.replace(/^http/, 'ws');
-    const socket = io(HOST); //http://10.0.0.149:3001
+    const socket = io(HOST);//use this for heroku deployment   //http://10.0.0.149:3001
+     //const socket = io("http://localhost:3001"); 
     //process.env.REACT_APP_SERVER_URL
     useEffect(() => {
         socket.on('mongoDbLiveUpdate', (data) => {
@@ -56,13 +62,21 @@ let Home=()=>{
         // Add 2 more units of dummy data after 30 seconds
         let authToken=localStorage.getItem('token');
         console.log(authToken)
-        let payload= getPayloadFromToken(authToken)
-        setUserData(payload)
-       
+        let payload=null;
+        if(authToken!=null)
+        {
+            payload=getPayloadFromToken(authToken)
+            setUserData(payload)
+        }
+        else{
+            //handle if no jwt auth token
+            console.log("No JWT Token present!")
+        }
+
     }, []);
 
     let navToAddNewPubPostForm=()=>{
-        navigate("/publicPost")
+        //navigate("/publicPost")
     }
 
     let getAllPublicPosts= async ()=>{
@@ -108,12 +122,12 @@ let Home=()=>{
         const decodedPayload = JSON.parse(atob(payload));
 
         return decodedPayload;
-  }
+    }
 
     return(<>
         <Container className='mt-5'>
             <header>
-                <h1>FaithBook</h1>
+                <h1 style={{color:'#001a4d'}}>FaithBook</h1>
             </header>
             <Row className='mt-2'>
                 <Col md={{ span: 8, offset: 2 }}>
@@ -148,7 +162,17 @@ let Home=()=>{
             </Row>
             <Row className='mt-5'>
                 <Col md={{ span: 6, offset: 3 }}>
-                        feel free to get in touch with us on
+                    <h6>
+                        Need some advice , want to share with us your personal story or need our support team to pray with you? ... Feel free to get in touch with us
+                    </h6>                
+                </Col>
+                <Col md={{ span: 6, offset: 3 }}>
+                        {/* <EmailForm></EmailForm> */}
+                        <Button variant="primary" onClick={handleOpenModal}>
+                            Email Us
+                        </Button>
+
+                        <EmailFormModal showModal={showModal} handleClose={handleCloseModal} />
                 </Col>
             </Row>
         </Container>

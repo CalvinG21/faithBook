@@ -11,7 +11,9 @@ let helmet =require("helmet");
 const axios = require('axios');
 const path = require('path');
 const cron = require('node-cron');
+const nodemailer = require('nodemailer');
 
+let emailrouter=require('./routes/emailRoutes')
 let cachedData = {};
 
 const dotenv = require('dotenv');
@@ -310,22 +312,66 @@ else
 }
 
 
-// if (process.env.NODE_ENV === 'production') {
-//     console.log(__dirname);
-//     let p=path.join(__dirname, 'build')
-//     console.log(p)
-//     app.use(express.static(p));
+// Admin SMTP configuration
+const transporter = nodemailer.createTransport({
+  host: 'smtp.gmail.com', // Replace with the SMTP server for the admin's email
+  port: 587,
+  secure: false, // Set to true if using a secure connection (e.g., SSL/TLS)
+  auth: {
+    user: 'calvinsg777@gmail.com', // Replace with the admin's email
+    pass: 'elah cchy mgkz isjd', // Replace with the admin's email password
+  },
+});
+// const transporter = nodemailer.createTransport({
+//   service: 'gmail',
+//   auth: {
+//     user: 'your-email@gmail.com',
+//     pass: 'your-email-password',
+//   },
+// });
 
-//     app.get('/', (req, res) => {
-//         res.sendFile(path.join(__dirname, 'build/index.html'));
-//         console.log("hava hava");
-//     });
-// }
+const mailOptions = {
+  from: 'calvinsg777@gmail.com',
+  to: 'calvinsg777@gmail.com',
+  cc: 'calvin.govindsamy@mediaverge.co.za', // CC recipient
+  subject: 'Subject of the Email',
+  text: 'Body of the email.. waaaaasuuuuuuuuup',
+};
+
+transporter.sendMail(mailOptions, (error, info) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('Email sent: ' + info.response);
+  }
+});
 
 /*Note that Heroku cloud zone is 2 hours behind us */
 
-// Schedule the task to run every day at 11 59 PM
-cron.schedule('15 18 * * *', async () => { 
+// Schedule the task to run every day at 11 15 AM
+cron.schedule('15 9 * * *', async () => { 
+  try {
+    getDailyBibleChapter()
+
+   
+  } catch (error) {
+    console.error('Error fetching data:', error.message);
+  }
+});
+
+// Schedule the task to run every day at 12 17 AM
+cron.schedule('17 10 * * *', async () => { 
+  try {
+    getDailyBibleChapter()
+
+   
+  } catch (error) {
+    console.error('Error fetching data:', error.message);
+  }
+});
+
+// Schedule the task to run every day at 14 20 AM
+cron.schedule('39 22  * * *', async () => { 
   try {
     getDailyBibleChapter()
 
@@ -336,29 +382,7 @@ cron.schedule('15 18 * * *', async () => {
 });
 
 // Schedule the task to run every day at 11 59 PM
-cron.schedule('17 18 * * *', async () => { 
-  try {
-    getDailyBibleChapter()
-
-   
-  } catch (error) {
-    console.error('Error fetching data:', error.message);
-  }
-});
-
-// Schedule the task to run every day at 11 59 PM
-cron.schedule('20 18 * * *', async () => { 
-  try {
-    getDailyBibleChapter()
-
-   
-  } catch (error) {
-    console.error('Error fetching data:', error.message);
-  }
-});
-
-// Schedule the task to run every day at 11 59 PM
-cron.schedule('13 18 * * *', async () => { 
+cron.schedule('37 20 * * *', async () => { 
   try {
     getDailyBibleChapter()
 
@@ -393,7 +417,7 @@ let getDailyBibleChapter=async(sendToFrontend=true)=>{
 
   try {
     const response = await axios.request(options);
-    console.log(response.data);
+    //console.log(response.data);
     //save data locally for future requests
     cachedData.texts=response.data;
     cachedData.bookName=booksOfBible[Number(response.data[0].b)]
@@ -404,12 +428,12 @@ let getDailyBibleChapter=async(sendToFrontend=true)=>{
    options2.params.chapterId=response.data[0].c
 
 	const response2 = await axios.request(options2);
-	console.log(response2.data);
+	//console.log(response2.data);
     cachedData.audio=response2.data.fileName;
 
     if(sendToFrontend){
         if (io.sockets.sockets.size > 0) {
-       console.log('cachedData : '+JSON.stringify(cachedData));
+       //console.log('cachedData : '+JSON.stringify(cachedData));
        console.log('ws tx 22222222222222');
        io.emit('bibleChapterUpdate', cachedData);
        console.log('ws tx bibleChapterUpdate');
@@ -426,16 +450,6 @@ let getDailyBibleChapter=async(sendToFrontend=true)=>{
   }
 }
 
-
-const server = http.createServer(app);
-const io = require('socket.io')(server, {
-  cors: {
-    //origin: 'http://10.0.0.149:3000',
-    origin: '*',
-    methods: ['GET', 'POST'],
-  },
-});
-
 //global midleware
 app.use(express.json())
 app.use(cors())
@@ -447,6 +461,17 @@ app.use(helmet());
 //mount the router for users to requests with url path begining with '/user'
 app.use('/user',userRouter)
 app.use('/public/',publicPostsRouter)
+app.use('/email',emailrouter)
+
+
+const server = http.createServer(app);
+const io = require('socket.io')(server, {
+  cors: {
+    //origin: 'http://10.0.0.149:3000',
+    origin: '*',
+    methods: ['GET', 'POST'],
+  },
+});
 
 //routes
 app.get("/test",(req,res)=>{ 
@@ -497,8 +522,9 @@ mongoose.connection.once('open', function() {
           console.log("mongo db live updates : "+JSON.stringify(data))
           
            const lastWeekTimestamp = new Date();
-                lastWeekTimestamp.setDate(lastWeekTimestamp.getDate() - 7); // Subtract 7 days
-          PublicPosts.find({ updatedAt: { $gt: lastWeekTimestamp } })
+                lastWeekTimestamp.setDate(lastWeekTimestamp.getDate() - 365); // Subtract 365 days
+                PublicPosts
+                .find({ updatedAt: { $gt: lastWeekTimestamp } })
                 .limit(50) // Limit the result to 50 documents
                 .exec()
                 .then((response)=>{
@@ -515,7 +541,7 @@ mongoose.connection.once('open', function() {
                     }
                 })
                 .catch((err)=>{
-
+                    console.log('change streams error : '+JSON.stringify(ERR));
                 })
 
      });
@@ -524,15 +550,13 @@ mongoose.connection.once('open', function() {
 //first time set up for cached data
 getDailyBibleChapter(false)
 
-
+console.log("$$$ "+process.env.emailSupportName)
 
 
 //app to listen for incoming http requests on port
 const PORT = process.env.PORT || 3001;
 const HOST = '10.0.0.149'; //192.168.0.174 //10.0.0.149
 
-server.listen(PORT,  () => {
-  console.log(`express web app running on http://:${PORT}`);
-  
-
+server.listen(PORT,HOST,  () => {
+    console.log(`express web app running on http://:${PORT}`);
 });

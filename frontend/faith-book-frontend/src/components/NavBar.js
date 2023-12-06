@@ -22,7 +22,7 @@ let loggedIn =useSelector((state)=>state.bibleChap.value.isloggedin)
       //else then set redux store var loggedIn=false
       window.addEventListener('beforeunload', ()=>{
         console.log("####### beforeunload  ");
-        localStorage.removeItem('token');
+        //localStorage.removeItem('token');
       });
 
     },[loggedIn])

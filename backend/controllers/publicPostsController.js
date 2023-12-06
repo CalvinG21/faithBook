@@ -35,7 +35,7 @@ exports.getAllPosts=async(req,res)=>{
         
             try {
                 const lastWeekTimestamp = new Date();
-                lastWeekTimestamp.setDate(lastWeekTimestamp.getDate() - 7); // Subtract 7 days
+                lastWeekTimestamp.setDate(lastWeekTimestamp.getDate() - 365); // Subtract 7 days
 
                 // Find documents where updatedAt is greater than last week
                 let allPosts=await PublicPosts.find({ updatedAt: { $gt: lastWeekTimestamp } })
