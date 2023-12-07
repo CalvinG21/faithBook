@@ -38,12 +38,15 @@ const EmailFormModal = ({ showModal, handleClose }) => {
               if (response.ok) {
                   const data = await response.json();
                   console.log('API Response:', data);
+                  alert("Successfully sent email!")
               } 
               else {
                   console.error('API Error:', response.statusText);
+                  alert("Failed to send email!")
               }
         } catch (error) {
             console.error('Fetch Error:', error);
+            alert("Failed to send email!")
         }
         finally{
             handleClose()
