@@ -50,7 +50,7 @@ const handleSubmit = async (event) => {
     } 
     catch (error) {
       alert("Failed to sign up!")
-      console.error('Error:', error.message);
+      console.log('Error:', error.message);
     }
 
     // Here you can perform the signup logic, such as sending a request to your server
