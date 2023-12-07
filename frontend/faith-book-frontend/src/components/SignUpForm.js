@@ -33,7 +33,7 @@ const handleSubmit = async (event) => {
 
       if (!response.ok) {
         // Handle error cases
-        console.error('Failed to fetch data:', response.statusText);
+        console.log('Failed to fetch data:', response.statusText);
          alert("Failed to sign up!")
         return;
       }
