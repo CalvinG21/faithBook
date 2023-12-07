@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Form, Button, Col, Row ,Container} from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import { reset,updateLoginUser } from '../redux/bibleVerseUpdateStore'
 
 const SignUpForm = () => {
   const dispatch = useDispatch();
