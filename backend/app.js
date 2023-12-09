@@ -284,6 +284,8 @@ dotenv.config();
 //   }
 // ] 
 
+console.log(booksOfBible)
+
 if (process.env.NODE_ENV === 'production') {
     console.log(__dirname);
     let frontendPath = path.join(__dirname, 'build');
