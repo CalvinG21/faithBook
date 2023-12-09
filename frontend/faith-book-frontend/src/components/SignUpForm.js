@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { Form, Button, Col, Row ,Container} from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { reset,updateLoginUser } from '../redux/bibleVerseUpdateStore'
+import {  useDispatch } from "react-redux";
+import { updateLoginUser } from '../redux/bibleVerseUpdateStore'
 
 const SignUpForm = () => {
-  const dispatch = useDispatch();
+const dispatch = useDispatch();
 const [username, setUsername] = useState('');
 const [email, setEmail] = useState('');
 const [password, setPassword] = useState('');
