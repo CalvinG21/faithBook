@@ -314,7 +314,7 @@ else
 /*Note that Heroku cloud zone is 2 hours behind us */
 
 // Schedule the task to run every day at 11 15 AM
-cron.schedule('23 8 * * *', async () => { 
+cron.schedule('23 12 * * *', async () => { 
   try {
     getDailyBibleChapter()
 
@@ -325,7 +325,7 @@ cron.schedule('23 8 * * *', async () => {
 });
 
 // Schedule the task to run every day at 12 17 AM
-cron.schedule('17 10 * * *', async () => { 
+cron.schedule('23 15 * * *', async () => { 
   try {
     getDailyBibleChapter()
 
