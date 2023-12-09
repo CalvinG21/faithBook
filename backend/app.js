@@ -1,4 +1,3 @@
-let middleware=require('./routes/middleware')
 let express=require('express');
 let app = express();
 let cors=require('cors');
@@ -11,281 +10,279 @@ let helmet =require("helmet");
 const axios = require('axios');
 const path = require('path');
 const cron = require('node-cron');
-const nodemailer = require('nodemailer');
-
 let emailrouter=require('./routes/emailRoutes')
 let cachedData = {};
-
+const booksOfBible=require('./libBooksOdBible');
 const dotenv = require('dotenv');
 dotenv.config();
 
 //most api providers use this structure, maintainance required!!!
-const booksOfBible =[
-  {
-    "b": "1",
-    "n": "Genesis"
-  },
-  {
-    "b": "2",
-    "n": "Exodus"
-  },
-  {
-    "b": "3",
-    "n": "Leviticus"
-  },
-  {
-    "b": "4",
-    "n": "Numbers"
-  },
-  {
-    "b": "5",
-    "n": "Deuteronomy"
-  },
-  {
-    "b": "6",
-    "n": "Joshua"
-  },
-  {
-    "b": "7",
-    "n": "Judges"
-  },
-  {
-    "b": "8",
-    "n": "Ruth"
-  },
-  {
-    "b": "9",
-    "n": "1 Samuel"
-  },
-  {
-    "b": "10",
-    "n": "2 Samuel"
-  },
-  {
-    "b": "11",
-    "n": "1 Kings"
-  },
-  {
-    "b": "12",
-    "n": "2 Kings"
-  },
-  {
-    "b": "13",
-    "n": "1 Chronicles"
-  },
-  {
-    "b": "14",
-    "n": "2 Chronicles"
-  },
-  {
-    "b": "15",
-    "n": "Ezra"
-  },
-  {
-    "b": "16",
-    "n": "Nehemiah"
-  },
-  {
-    "b": "17",
-    "n": "Esther"
-  },
-  {
-    "b": "18",
-    "n": "Job"
-  },
-  {
-    "b": "19",
-    "n": "Psalms"
-  },
-  {
-    "b": "20",
-    "n": "Proverbs"
-  },
-  {
-    "b": "21",
-    "n": "Ecclesiastes"
-  },
-  {
-    "b": "22",
-    "n": "Song of Solomon"
-  },
-  {
-    "b": "23",
-    "n": "Isaiah"
-  },
-  {
-    "b": "24",
-    "n": "Jeremiah"
-  },
-  {
-    "b": "25",
-    "n": "Lamentations"
-  },
-  {
-    "b": "26",
-    "n": "Ezekiel"
-  },
-  {
-    "b": "27",
-    "n": "Daniel"
-  },
-  {
-    "b": "28",
-    "n": "Hosea"
-  },
-  {
-    "b": "29",
-    "n": "Joel"
-  },
-  {
-    "b": "30",
-    "n": "Amos"
-  },
-  {
-    "b": "31",
-    "n": "Obadiah"
-  },
-  {
-    "b": "32",
-    "n": "Jonah"
-  },
-  {
-    "b": "33",
-    "n": "Micah"
-  },
-  {
-    "b": "34",
-    "n": "Nahum"
-  },
-  {
-    "b": "35",
-    "n": "Habakkuk"
-  },
-  {
-    "b": "36",
-    "n": "Zephaniah"
-  },
-  {
-    "b": "37",
-    "n": "Haggai"
-  },
-  {
-    "b": "38",
-    "n": "Zechariah"
-  },
-  {
-    "b": "39",
-    "n": "Malachi"
-  },
-  {
-    "b": "40",
-    "n": "Matthew"
-  },
-  {
-    "b": "41",
-    "n": "Mark"
-  },
-  {
-    "b": "42",
-    "n": "Luke"
-  },
-  {
-    "b": "43",
-    "n": "John"
-  },
-  {
-    "b": "44",
-    "n": "Acts"
-  },
-  {
-    "b": "45",
-    "n": "Romans"
-  },
-  {
-    "b": "46",
-    "n": "1 Corinthians"
-  },
-  {
-    "b": "47",
-    "n": "2 Corinthians"
-  },
-  {
-    "b": "48",
-    "n": "Galatians"
-  },
-  {
-    "b": "49",
-    "n": "Ephesians"
-  },
-  {
-    "b": "50",
-    "n": "Philippians"
-  },
-  {
-    "b": "51",
-    "n": "Colossians"
-  },
-  {
-    "b": "52",
-    "n": "1 Thessalonians"
-  },
-  {
-    "b": "53",
-    "n": "2 Thessalonians"
-  },
-  {
-    "b": "54",
-    "n": "1 Timothy"
-  },
-  {
-    "b": "55",
-    "n": "2 Timothy"
-  },
-  {
-    "b": "56",
-    "n": "Titus"
-  },
-  {
-    "b": "57",
-    "n": "Philemon"
-  },
-  {
-    "b": "58",
-    "n": "Hebrews"
-  },
-  {
-    "b": "59",
-    "n": "James"
-  },
-  {
-    "b": "60",
-    "n": "1 Peter"
-  },
-  {
-    "b": "61",
-    "n": "2 Peter"
-  },
-  {
-    "b": "62",
-    "n": "1 John"
-  },
-  {
-    "b": "63",
-    "n": "2 John"
-  },
-  {
-    "b": "64",
-    "n": "3 John"
-  },
-  {
-    "b": "65",
-    "n": "Jude"
-  },
-  {
-    "b": "66",
-    "n": "Revelation"
-  }
-] 
+// const booksOfBible =[
+//   {
+//     "b": "1",
+//     "n": "Genesis"
+//   },
+//   {
+//     "b": "2",
+//     "n": "Exodus"
+//   },
+//   {
+//     "b": "3",
+//     "n": "Leviticus"
+//   },
+//   {
+//     "b": "4",
+//     "n": "Numbers"
+//   },
+//   {
+//     "b": "5",
+//     "n": "Deuteronomy"
+//   },
+//   {
+//     "b": "6",
+//     "n": "Joshua"
+//   },
+//   {
+//     "b": "7",
+//     "n": "Judges"
+//   },
+//   {
+//     "b": "8",
+//     "n": "Ruth"
+//   },
+//   {
+//     "b": "9",
+//     "n": "1 Samuel"
+//   },
+//   {
+//     "b": "10",
+//     "n": "2 Samuel"
+//   },
+//   {
+//     "b": "11",
+//     "n": "1 Kings"
+//   },
+//   {
+//     "b": "12",
+//     "n": "2 Kings"
+//   },
+//   {
+//     "b": "13",
+//     "n": "1 Chronicles"
+//   },
+//   {
+//     "b": "14",
+//     "n": "2 Chronicles"
+//   },
+//   {
+//     "b": "15",
+//     "n": "Ezra"
+//   },
+//   {
+//     "b": "16",
+//     "n": "Nehemiah"
+//   },
+//   {
+//     "b": "17",
+//     "n": "Esther"
+//   },
+//   {
+//     "b": "18",
+//     "n": "Job"
+//   },
+//   {
+//     "b": "19",
+//     "n": "Psalms"
+//   },
+//   {
+//     "b": "20",
+//     "n": "Proverbs"
+//   },
+//   {
+//     "b": "21",
+//     "n": "Ecclesiastes"
+//   },
+//   {
+//     "b": "22",
+//     "n": "Song of Solomon"
+//   },
+//   {
+//     "b": "23",
+//     "n": "Isaiah"
+//   },
+//   {
+//     "b": "24",
+//     "n": "Jeremiah"
+//   },
+//   {
+//     "b": "25",
+//     "n": "Lamentations"
+//   },
+//   {
+//     "b": "26",
+//     "n": "Ezekiel"
+//   },
+//   {
+//     "b": "27",
+//     "n": "Daniel"
+//   },
+//   {
+//     "b": "28",
+//     "n": "Hosea"
+//   },
+//   {
+//     "b": "29",
+//     "n": "Joel"
+//   },
+//   {
+//     "b": "30",
+//     "n": "Amos"
+//   },
+//   {
+//     "b": "31",
+//     "n": "Obadiah"
+//   },
+//   {
+//     "b": "32",
+//     "n": "Jonah"
+//   },
+//   {
+//     "b": "33",
+//     "n": "Micah"
+//   },
+//   {
+//     "b": "34",
+//     "n": "Nahum"
+//   },
+//   {
+//     "b": "35",
+//     "n": "Habakkuk"
+//   },
+//   {
+//     "b": "36",
+//     "n": "Zephaniah"
+//   },
+//   {
+//     "b": "37",
+//     "n": "Haggai"
+//   },
+//   {
+//     "b": "38",
+//     "n": "Zechariah"
+//   },
+//   {
+//     "b": "39",
+//     "n": "Malachi"
+//   },
+//   {
+//     "b": "40",
+//     "n": "Matthew"
+//   },
+//   {
+//     "b": "41",
+//     "n": "Mark"
+//   },
+//   {
+//     "b": "42",
+//     "n": "Luke"
+//   },
+//   {
+//     "b": "43",
+//     "n": "John"
+//   },
+//   {
+//     "b": "44",
+//     "n": "Acts"
+//   },
+//   {
+//     "b": "45",
+//     "n": "Romans"
+//   },
+//   {
+//     "b": "46",
+//     "n": "1 Corinthians"
+//   },
+//   {
+//     "b": "47",
+//     "n": "2 Corinthians"
+//   },
+//   {
+//     "b": "48",
+//     "n": "Galatians"
+//   },
+//   {
+//     "b": "49",
+//     "n": "Ephesians"
+//   },
+//   {
+//     "b": "50",
+//     "n": "Philippians"
+//   },
+//   {
+//     "b": "51",
+//     "n": "Colossians"
+//   },
+//   {
+//     "b": "52",
+//     "n": "1 Thessalonians"
+//   },
+//   {
+//     "b": "53",
+//     "n": "2 Thessalonians"
+//   },
+//   {
+//     "b": "54",
+//     "n": "1 Timothy"
+//   },
+//   {
+//     "b": "55",
+//     "n": "2 Timothy"
+//   },
+//   {
+//     "b": "56",
+//     "n": "Titus"
+//   },
+//   {
+//     "b": "57",
+//     "n": "Philemon"
+//   },
+//   {
+//     "b": "58",
+//     "n": "Hebrews"
+//   },
+//   {
+//     "b": "59",
+//     "n": "James"
+//   },
+//   {
+//     "b": "60",
+//     "n": "1 Peter"
+//   },
+//   {
+//     "b": "61",
+//     "n": "2 Peter"
+//   },
+//   {
+//     "b": "62",
+//     "n": "1 John"
+//   },
+//   {
+//     "b": "63",
+//     "n": "2 John"
+//   },
+//   {
+//     "b": "64",
+//     "n": "3 John"
+//   },
+//   {
+//     "b": "65",
+//     "n": "Jude"
+//   },
+//   {
+//     "b": "66",
+//     "n": "Revelation"
+//   }
+// ] 
 
 if (process.env.NODE_ENV === 'production') {
     console.log(__dirname);
@@ -311,40 +308,6 @@ else
     });
 }
 
-
-// Admin SMTP configuration
-const transporter = nodemailer.createTransport({
-  host: 'smtp.gmail.com', // Replace with the SMTP server for the admin's email
-  port: 587,
-  secure: false, // Set to true if using a secure connection (e.g., SSL/TLS)
-  auth: {
-    user: 'calvinsg777@gmail.com', // Replace with the admin's email
-    pass: 'elah cchy mgkz isjd', // Replace with the admin's email password
-  },
-});
-// const transporter = nodemailer.createTransport({
-//   service: 'gmail',
-//   auth: {
-//     user: 'your-email@gmail.com',
-//     pass: 'your-email-password',
-//   },
-// });
-
-const mailOptions = {
-  from: 'calvinsg777@gmail.com',
-  to: 'calvinsg777@gmail.com',
-  cc: 'calvin.govindsamy@mediaverge.co.za', // CC recipient
-  subject: 'Subject of the Email',
-  text: 'Body of the email.. waaaaasuuuuuuuuup',
-};
-
-transporter.sendMail(mailOptions, (error, info) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('Email sent: ' + info.response);
-  }
-});
 
 /*Note that Heroku cloud zone is 2 hours behind us */
 
@@ -474,35 +437,23 @@ const io = require('socket.io')(server, {
 });
 
 //routes
-app.get("/test",(req,res)=>{ 
-    //once react app is built as (html,js and css), serve the react app index.hmtl webpage on this route
-    res.status(200).json({ data: 'successfully requested the home page' });
-})
 
 app.get("/dailyBibleChapter",(req,res)=>{ 
     //once react app is built as (html,js and css), serve the react app index.hmtl webpage on this route
     res.status(200).json({ data: cachedData });
 })
 
-// app.get("*",(req,res)=>{
-//      res.status(404).json({ data: 'Resource not found' });
-// })
-
 app.get("*",(req,res)=>{
-  res.sendFile(path.join(__dirname, 'build/index.html'));   
-  //res.status(404).json({ data: 'Resource not found' });
+  res.sendFile(path.join(__dirname, 'build/index.html'));  
 })
-
-
 
 //mongoose driver set up : connect to remote mongoo db
 mongoose.Promise = global.Promise;
 
 // Connect to MongoDB using Mongoose
-//mongoose.connect('mongodb+srv://calvinTest:test123@cluster0.65qmcdz.mongodb.net/', {
 mongoose.connect( process.env.mongoDbConnStr, {
     //useMongoClient: false,
-dbName: 'faithBook', // Connect to the Blogs database.
+dbName: 'faithBook', // Connect to the faithbook database.
 useNewUrlParser: true,
     useUnifiedTopology: true,
 });
@@ -516,35 +467,31 @@ mongoose.connection.once('open', function() {
     console.log("Successfully connected to the database");
 })
 
-
-     PublicPosts.watch().
-     on('change', (data) => {
-          console.log("mongo db live updates : "+JSON.stringify(data))
-          
-           const lastWeekTimestamp = new Date();
-                lastWeekTimestamp.setDate(lastWeekTimestamp.getDate() - 365); // Subtract 365 days
-                PublicPosts
-                .find({ updatedAt: { $gt: lastWeekTimestamp } })
-                .limit(50) // Limit the result to 50 documents
-                .exec()
-                .then((response)=>{
-                  console.log("mongoDbLiveUpdate !!!!!!!!!!!!!!!!!")
-                    //console.log(response)
-                    //socket.emit('mongoDbLiveUpdate', response);
-                    if (io.sockets.sockets.size > 0) {
-                       console.log('ws tx 11111111');
-                      // Send data for route1 to connected clients
-                     io.emit('mongoDbLiveUpdate', response);
-                       console.log('ws tx mongoDbLiveUpdate');
-                    } else {
-                      console.log('No connected clients');
-                    }
-                })
-                .catch((err)=>{
-                    console.log('change streams error : '+JSON.stringify(ERR));
-                })
-
-     });
+PublicPosts.watch().
+on('change', (data) => {
+     console.log("mongo db live updates : "+JSON.stringify(data))
+     
+      const lastWeekTimestamp = new Date();
+           lastWeekTimestamp.setDate(lastWeekTimestamp.getDate() - 365); // Subtract 365 days
+           PublicPosts
+           .find({ updatedAt: { $gt: lastWeekTimestamp } })
+           .limit(50) // Limit the result to 50 documents
+           .exec()
+           .then((response)=>{
+               console.log("mongoDbLiveUpdate !!!!!!!!!!!!!!!!!")
+               
+               if (io.sockets.sockets.size > 0) {
+                  // Send data for route1 to connected clients
+                  io.emit('mongoDbLiveUpdate', response);
+                  console.log('ws tx mongoDbLiveUpdate');
+               } else {
+                 console.log('No connected clients');
+               }
+           })
+           .catch((err)=>{
+               console.log('change streams error : '+JSON.stringify(ERR));
+           })
+});
 
 
 //first time set up for cached data
