@@ -1,12 +1,13 @@
 let express=require('express')
 let publicPostsRouter=express.Router();
 let publicPostsController=require('../controllers/publicPostsController')
+let middleware=require('./middleware')
 
 publicPostsRouter.post("/",(req,res)=>{
     publicPostsController.saveNewPost(req,res)
 })
 
-publicPostsRouter.get("/",(req,res)=>{
+publicPostsRouter.get("/",middleware.checkJWTToken,(req,res)=>{
     publicPostsController.getAllPosts(req,res)
 })
 

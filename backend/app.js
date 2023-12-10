@@ -220,7 +220,7 @@ on('change', (data) => {
           }
       })
       .catch((err)=>{
-          console.log('change streams error : '+JSON.stringify(ERR));
+          console.log('change streams error : '+JSON.stringify(err));
       })
 });
 
