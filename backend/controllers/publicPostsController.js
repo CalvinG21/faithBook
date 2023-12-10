@@ -1,10 +1,6 @@
 let PublicPosts=require('../models/publicPostsModels');
-// let secretKey="jwt-secret";
-// let jwt=require('jsonwebtoken');
-// const bcrypt = require('bcrypt');
-// const saltRounds = 10; 
-
-
+ 
+//create new post
 exports.saveNewPost=async(req,res)=>{
     console.log("publicPostsController : saveNewUser()")
     try {
@@ -12,7 +8,7 @@ exports.saveNewPost=async(req,res)=>{
         console.log('req.body : '+JSON.stringify(req.body))
         let newPost=new PublicPosts({type:req.body.type,title:req.body.title,
             text:req.body.text,authorId:req.body.authorId,anonymous:req.body.anonymous});
-        await newPost.save();
+        await newPost.save();//save new post to db
         res.status(200).send({"success":"Saved a new public post"})
     } catch (error) {
         console.log(error)
@@ -20,11 +16,12 @@ exports.saveNewPost=async(req,res)=>{
     }
 }
 
+//get all posts
 exports.getAllPosts=async(req,res)=>{
     console.log("publicPostsController : getAllPosts()")
     try {
         const lastWeekTimestamp = new Date();
-        lastWeekTimestamp.setDate(lastWeekTimestamp.getDate() - 365); // Subtract 7 days
+        lastWeekTimestamp.setDate(lastWeekTimestamp.getDate() - 365); // Subtract x days
 
         // Find documents where updatedAt is greater than last week
         let allPosts=await PublicPosts.find({ updatedAt: { $gt: lastWeekTimestamp } })
@@ -44,6 +41,7 @@ exports.getAllPosts=async(req,res)=>{
     }
 }
 
+//update apost
 exports.updatePost=async(req,res)=>{
     console.log("publicPostsController : updatePost()")
     try {     
@@ -62,6 +60,7 @@ exports.updatePost=async(req,res)=>{
     }
 }
 
+//get a specific post
 exports.getOnePost=async(req,res)=>{
     console.log("publicPostsController : getOnePost()")
     try {      
@@ -83,6 +82,7 @@ exports.getOnePost=async(req,res)=>{
    
 }
 
+//delete a specific post
 exports.deleteOnePost=async(req,res)=>{
     console.log("publicPostsController : deleteOnePost()")
     try {       

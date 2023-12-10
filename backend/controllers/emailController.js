@@ -13,6 +13,7 @@ const transporter = nodemailer.createTransport({
   },
 });
 
+//function to handle creating and sending email
 exports.sendEmail=async(req,res)=>{
     console.log("emailController : sendEmail()")
     try {

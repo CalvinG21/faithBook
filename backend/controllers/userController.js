@@ -4,6 +4,7 @@ let jwt=require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const saltRounds = 10; 
 
+//login
 exports.login=async (req,res)=>{
     let user= await Users.findOne({username:req.body.username})
     console.log(user)
@@ -42,6 +43,7 @@ exports.login=async (req,res)=>{
     });
 }
 
+//sign up
 exports.saveNewUser=async(req,res)=>{
     console.log("userController : saveNewUser()")
     //let{username,password,email}=req.body;

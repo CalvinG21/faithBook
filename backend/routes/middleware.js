@@ -1,6 +1,7 @@
 let jwt = require("jsonwebtoken");
 let secretKey="jwt-secret";
 
+//middleware func to confirm if jwt token is paaed in request and if token is vaild
 let checkJWTToken=(req, res, next)=> {
     if (req.headers.authorization) {
         const token = req.headers['authorization'].split(' ')[1]
