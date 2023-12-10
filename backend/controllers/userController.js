@@ -5,7 +5,6 @@ const bcrypt = require('bcrypt');
 const saltRounds = 10; 
 
 exports.login=async (req,res)=>{
-    
     let user= await Users.findOne({username:req.body.username})
     console.log(user)
     user==null || user=={} ?
