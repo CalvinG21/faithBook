@@ -148,7 +148,7 @@ let Home=()=>{
                 </Col>
                 <Col md={{ span: 6, offset: 3 }}>
                         {/* <EmailForm></EmailForm> */}
-                        <Button variant="primary" onClick={handleOpenModal}>
+                        <Button className='mb-2'  variant="primary" onClick={handleOpenModal}>
                             Email Us
                         </Button>
 

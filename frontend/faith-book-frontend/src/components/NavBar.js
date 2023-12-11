@@ -49,7 +49,7 @@ let loggedIn =useSelector((state)=>state.bibleChap.value.isloggedin)
                   <Link style={{display:loggedIn==true ? "":'none'}} to="/home" className='mx-1'>Home</Link>
                   <Link to="/about" className='mx-1'>About Us</Link>
                   <Link style={{display:loggedIn==false ? "":'none'}} to="/" className='mx-1'>Login</Link>
-                  <Link style={{display:loggedIn==false ? "":'none'}} to="/signUp" className='mx-1'>Sign In</Link>
+                  <Link style={{display:loggedIn==false ? "":'none'}} to="/signUp" className='mx-1'>Sign Up</Link>
                   <Link style={{display:loggedIn==true ? "":'none'}} to="/logout" className='mx-1'>Logout</Link>
                 </Nav>
                
