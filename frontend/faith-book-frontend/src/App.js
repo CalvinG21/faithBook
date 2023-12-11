@@ -1,8 +1,6 @@
-import logo from './logo.svg';
 import './App.css';
 import LoginForm from './components/LoginForm';
 import { Routes, Route, Link } from "react-router-dom";
-
 import 'bootstrap/dist/css/bootstrap.min.css';
 import NavBar from './components/NavBar';
 import SignUpForm from './components/SignUpForm';
@@ -26,7 +24,7 @@ function App() {
               <Route path='/about' element={<AboutUs></AboutUs>}></Route>
               <Route path='/home' element={<Home></Home>}></Route>
               <Route path='/publicPost' element={<AddPublicPostForm></AddPublicPostForm>}></Route>
-              <Route path='/editPublicPost/:userId' element={<EditPublicPostForm></EditPublicPostForm>}></Route>
+              <Route path='/editPublicPost/:postId' element={<EditPublicPostForm></EditPublicPostForm>}></Route>
           </Routes>
       
     </div>

@@ -13,11 +13,12 @@ publicPostsRouter.get("/",middleware.checkJWTToken,(req,res)=>{
     publicPostsController.getAllPosts(req,res)
 })
 
+//get spefic post
 publicPostsRouter.get("/:id",middleware.checkJWTToken,(req,res)=>{
     publicPostsController.getOnePost(req,res)
 })
 
-//get spefic post
+//update post
 publicPostsRouter.patch("/:id",middleware.checkJWTToken,(req,res)=>{
     publicPostsController.updatePost(req,res)
 })

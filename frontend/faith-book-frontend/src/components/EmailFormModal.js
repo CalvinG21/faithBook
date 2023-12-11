@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Modal, Form, Button } from 'react-bootstrap';
 
-
 let getPayloadFromToken=(token)=> {
         // Split the token into header, payload, and signature
         const [header, payload, signature] = token.split('.');
@@ -12,11 +11,13 @@ let getPayloadFromToken=(token)=> {
         return decodedPayload;
   }
 
-const EmailFormModal = ({ showModal, handleClose }) => {
+const EmailFormModal = ({ showModal, handleClose }) => {  
+  //state of email contents  
   const [cc, setCc] = useState('');
   const [subject, setSubject] = useState('');
   const [body, setBody] = useState('');
 
+   //send api call to backend with email contents
   const handleSendEmail=async()=>{
         console.log("********** handleSendEmail() ***********")
         let authToken=localStorage.getItem('token');

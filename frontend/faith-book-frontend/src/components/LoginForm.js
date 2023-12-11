@@ -21,7 +21,6 @@ const LoginForm = (props) => {
         (()=>{
            
           //remove jwt from local storage
-          
           localStorage.removeItem('token');
           dispatch(reset());
           setUsername('');

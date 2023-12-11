@@ -17,7 +17,8 @@ const EmailForm = () => {
         return decodedPayload;
   }
   
-   const handleSendEmail=async()=>{
+  //send api call to backend with email contents
+  const handleSendEmail=async()=>{
         console.log("********** handleSendEmail() ***********")
         let authToken=localStorage.getItem('token');
         console.log(authToken)
@@ -26,27 +27,28 @@ const EmailForm = () => {
         authToken="bearer "+authToken
         
         try {
-              const response = await fetch('/email', {
-                  method: 'POST',
-                  headers: {
-                  'Content-Type': 'application/json',
-                  'authorization':authToken
-                  },
-                  body: JSON.stringify({ cc:payload.email, subject:subject, body:body })
-              });
+          const response = await fetch('/email', {
+              method: 'POST',
+              headers: {
+              'Content-Type': 'application/json',
+              'authorization':authToken
+              },
+              body: JSON.stringify({ cc:payload.email, subject:subject, body:body })
+          });
 
-              if (response.ok) {
-                  const data = await response.json();
-                  console.log('API Response:', data);
-              } 
-              else {
-                  console.error('API Error:', response.statusText);
-              }
-        } catch (error) {
+          if (response.ok) {
+              const data = await response.json();
+              console.log('API Response:', data);
+          } 
+          else {
+              console.error('API Error:', response.statusText);
+          }
+        } 
+        catch (error) {
             console.error('Fetch Error:', error);
         }
 
-    }
+  }
 
 
   return (

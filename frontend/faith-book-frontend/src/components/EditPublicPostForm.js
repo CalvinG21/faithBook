@@ -4,44 +4,37 @@ import { json, useParams } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 
 const EditPublicPostForm = () => {
-    const navigate = useNavigate();
-
-   const { userId } = useParams();
-  console.log(JSON.stringify(userId))
+  const navigate = useNavigate();
+  const { postId } = useParams();
+  console.log(JSON.stringify(postId))
   const [validated, setValidated] = useState(false);
   const [formData, setFormData] = useState({
-    
     title: '',
     text: ''
-    
   });
-
-  
-  
 
   useEffect(()=>{
     let authToken=localStorage.getItem('token');
-      console.log(authToken)
-      let payload= getPayloadFromToken(authToken)
-      console.log("payload : "+JSON.stringify(payload) )
-      authToken="bearer "+authToken
-     let d=formData;
-     d.authorId=payload._id
-     setFormData(d)
-      console.log(formData)
-      console.log(payload["_id"])
+    console.log(authToken)
+    let payload= getPayloadFromToken(authToken)
+    console.log("payload : "+JSON.stringify(payload) )
+    authToken="bearer "+authToken
+    let d=formData;
+    d.authorId=payload._id
+    setFormData(d)
+    console.log(formData)
+    console.log(payload["_id"])
 
-      userId!=undefined || userId!=null ?
-      (()=>{
-        console.log("(: id in url params")
-        //get this post!!!
-        getOnePost(userId)
-      })()
-      :
-      (()=>{
-        console.log("no id in url params")
-      })()
-      
+    postId!=undefined || postId!=null ?
+    (()=>{
+      console.log("(: id in url params")
+      //get this post!!!
+      getOnePost(postId)
+    })()
+    :
+    (()=>{
+      console.log("no id in url params")
+    })()
       
   },[])
 
@@ -52,45 +45,42 @@ const EditPublicPostForm = () => {
 
         // Base64 decode the payload
         const decodedPayload = JSON.parse(atob(payload));
-
-        
-
         return decodedPayload;
   }
 
   
 
-    const getOnePost=async(id)=>{
-       let authToken=localStorage.getItem('token');
-        console.log(authToken)
-        let payload= getPayloadFromToken(authToken)
-        console.log("payload : "+JSON.stringify(payload) )
-        authToken="bearer "+authToken
-        
-        try {
-        const response = await fetch('/public/'+id, {
-            method: 'GET',
-            headers: {
-            'Content-Type': 'application/json',
-            'authorization':authToken
-            },
-           
-        });
+  const getOnePost=async(id)=>{
+     let authToken=localStorage.getItem('token');
+      console.log(authToken)
+      let payload= getPayloadFromToken(authToken)
+      console.log("payload : "+JSON.stringify(payload) )
+      authToken="bearer "+authToken
+      
+      try {
+      const response = await fetch('/public/'+id, {
+          method: 'GET',
+          headers: {
+          'Content-Type': 'application/json',
+          'authorization':authToken
+          },
+         
+      });
 
-        if (response.ok) {
-            const data = await response.json();
-            console.log('API Response:', data);
-            setFormData({ ...formData, title: data.post.title, text: data.post.text })
-            //  setFormData({ ...formData, text: data.post.text })
-            
-        } else {
-            console.error('API Error:', response.statusText);
-        }
-        } catch (error) {
-            console.error('Fetch Error:', error);
-        }
+      if (response.ok) {
+          const data = await response.json();
+          console.log('API Response:', data);
+          setFormData({ ...formData, title: data.post.title, text: data.post.text })
+          //  setFormData({ ...formData, text: data.post.text })
+          
+      } else {
+          console.error('API Error:', response.statusText);
+      }
+      } catch (error) {
+          console.error('Fetch Error:', error);
+      }
 
-    }
+  }
 
 
   const handleInputChange = (e) => {
@@ -124,13 +114,13 @@ const EditPublicPostForm = () => {
     //alert(JSON.stringify(formData))
     // API call with fetch
     let authToken=localStorage.getItem('token');
-      console.log(authToken)
-      let payload= getPayloadFromToken(authToken)
-      console.log("payload : "+JSON.stringify(payload) )
-      authToken="bearer "+authToken
+    console.log(authToken)
+    let payload= getPayloadFromToken(authToken)
+    console.log("payload : "+JSON.stringify(payload) )
+    authToken="bearer "+authToken
     
     try {
-      const response = await fetch('/public/'+userId, {
+      const response = await fetch('/public/'+postId, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -149,8 +139,9 @@ const EditPublicPostForm = () => {
         console.error('API Error:', response.statusText);
         
       }
-    } catch (error) {
-        alert('Failed to update this post :(')
+    } 
+    catch (error) {
+      alert('Failed to update this post :(')
       console.error('Fetch Error:', error);
     }
    };

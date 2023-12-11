@@ -5,60 +5,59 @@ import {  useDispatch } from "react-redux";
 import { updateLoginUser } from '../redux/bibleVerseUpdateStore'
 
 const SignUpForm = () => {
-const dispatch = useDispatch();
-const [username, setUsername] = useState('');
-const [email, setEmail] = useState('');
-const [password, setPassword] = useState('');
-const [confirmPassword, setConfirmPassword] = useState('');
-const navigate = useNavigate();
-const handleSubmit = async (event) => {
-    event.preventDefault();
+    const dispatch = useDispatch();
+    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+    const navigate = useNavigate();
+    
+    const handleSubmit = async (event) => {
+        event.preventDefault();
 
-    // Password confirmation logic
-    if (password !== confirmPassword) {
-      // Handle password mismatch
-      console.log('Password and Confirm Password do not match');
-      alert("Password and Confirm Password do not match")
-      return;
-    }
+        // Password confirmation logic
+        if (password !== confirmPassword) {
+          // Handle password mismatch
+          console.log('Password and Confirm Password do not match');
+          alert("Password and Confirm Password do not match")
+          return;
+        }
 
-    try {
-     // let authToken="bearer "+localStorage.getItem('token');
-      //console.log(authToken)
-      const response = await fetch('/user/signUp', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
+        try {
+          const response = await fetch('/user/signUp', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              
+            },
+            body: JSON.stringify({ username, password, email }),
+          });
+
+          if (!response.ok) {
+            // Handle error cases
+            console.log('Failed to fetch data:', response.statusText);
+            alert("Failed to sign up!")
+            return;
+          }
+
+          // Handle success cases
+          const responseData = await response.json();
+          console.log('##### sign up ##### Response data :', responseData);
+          alert("Successfully signed up!")
           
-        },
-        body: JSON.stringify({ username, password, email }),
-      });
+          //Store the token in local storage
+          localStorage.setItem('token', responseData.token);
+          dispatch(updateLoginUser({loggedIn:true}))
+          navigate("/home");
+        } 
+        catch (error) {
+          alert("Failed to sign up!")
+          console.log('Error:', error.message);
+        }
 
-      if (!response.ok) {
-        // Handle error cases
-        console.log('Failed to fetch data:', response.statusText);
-         alert("Failed to sign up!")
-        return;
-      }
-
-      // Handle success cases
-      const responseData = await response.json();
-      console.log('##### sign up ##### Response data :', responseData);
-      alert("Successfully signed up!")
-      
-      //Store the token in local storage
-      localStorage.setItem('token', responseData.token);
-      dispatch(updateLoginUser({loggedIn:true}))
-      navigate("/home");
-    } 
-    catch (error) {
-      alert("Failed to sign up!")
-      console.log('Error:', error.message);
-    }
-
-    // Here you can perform the signup logic, such as sending a request to your server
-    console.log('Signup submitted:', { username, email, password });
-  };
+        // Here you can perform the signup logic, such as sending a request to your server
+        console.log('Signup submitted:', { username, email, password });
+    };
 
   return (
     <Container className='mt-5'>

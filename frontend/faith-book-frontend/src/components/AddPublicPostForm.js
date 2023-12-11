@@ -1,6 +1,5 @@
 import { useState,useEffect  } from 'react';
 import { Form, Button, Col, Row, Container } from 'react-bootstrap';
-import { json, useParams } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 
 const AddPublicPostForm = () => {
@@ -18,19 +17,15 @@ const AddPublicPostForm = () => {
 
   useEffect(()=>{
     let authToken=localStorage.getItem('token');
-      console.log(authToken)
-      let payload= getPayloadFromToken(authToken)
-      console.log("payload : "+JSON.stringify(payload) )
-      authToken="bearer "+authToken
-     let d=formData;
-     d.authorId=payload._id
-     setFormData(d)
-      console.log(formData)
-      console.log(payload["_id"])
-
-    
-      
-      
+    console.log(authToken)
+    let payload= getPayloadFromToken(authToken)
+    console.log("payload : "+JSON.stringify(payload) )
+    authToken="bearer "+authToken
+    let d=formData;
+    d.authorId=payload._id
+    setFormData(d)
+    console.log(formData)
+    console.log(payload["_id"])
   },[])
 
 
@@ -40,12 +35,10 @@ const AddPublicPostForm = () => {
 
         // Base64 decode the payload
         const decodedPayload = JSON.parse(atob(payload));
-
-        
-
         return decodedPayload;
   }
 
+  //handle all users inputted data to feilds
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     let authToken=localStorage.getItem('token');
@@ -66,7 +59,7 @@ const AddPublicPostForm = () => {
     event.preventDefault();
 
     const form = event.currentTarget;
-    
+    //check if user inputs are valid
     if (form.checkValidity() === false ) {
       event.stopPropagation();
       setValidated(true);
@@ -95,11 +88,13 @@ const AddPublicPostForm = () => {
       if (response.ok) {
         const data = await response.json();
         console.log('API Response:', data);
+        //alert user that adding post was successful then nav back to home page!!!
         alert('Successfully added this post ;)')
         navigate("/home")
 
       } else {
         console.error('API Error:', response.statusText);
+        //alert user that adding post was unsuccessful
         alert('Failed to add this post :(')
       }
     } catch (error) {
