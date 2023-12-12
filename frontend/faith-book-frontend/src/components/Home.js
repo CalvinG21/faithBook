@@ -81,6 +81,7 @@ let Home=()=>{
 
             if (!response.ok) {
                 // Handle error cases
+                alert("Failed to retrieve posts")
                 console.error('Failed to fetch data:', response.statusText);
                 return;
             }
@@ -93,6 +94,7 @@ let Home=()=>{
             
         } 
         catch (error) {
+            alert("Failed to retrieve posts")
             console.error('Error:', error.message);
         }
     }

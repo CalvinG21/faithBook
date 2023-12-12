@@ -22,21 +22,22 @@ exports.sendEmail=async(req,res)=>{
         const mailOptions = {
             from: 'calvinsg777@gmail.com',
             to: 'calvinsg777@gmail.com',
-            cc: "calvin.govindsamy@mediaverge.co.za", // req.body.cc, // CC recipient
+            cc: req.body.cc, // CC recipient
             subject: req.body.subject,
             text: req.body.body,
         };
 
         transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
-            console.log("jaaaa")
             console.error(error);
-        } else {
+        } 
+        else {
             console.log('Email sent: ' + info.response);
         }
         });
         res.status(200).send({"success":"sent email out"})
-    } catch (error) {
+    } 
+    catch (error) {
         console.log(error)
         res.status(400).send({"errorz":error})   
     }

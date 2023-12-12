@@ -104,7 +104,7 @@ const LiveDataDisplay = (props) => {
             authToken="bearer "+authToken
         // Check user's response
         if (userConfirmed) {
-        //delete using fetch
+        
             fetch('/public/suspend/'+itemId, {
                 method: 'PATCH',
                 headers: {
