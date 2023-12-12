@@ -24,7 +24,7 @@ exports.sendEmail=async(req,res)=>{
             to: 'calvinsg777@gmail.com',
             cc: req.body.cc, // CC recipient
             subject: req.body.subject,
-            text: req.body.body,
+            text: req.body.cc+" wrote: \n\n"+req.body.body,
         };
 
         transporter.sendMail(mailOptions, (error, info) => {
