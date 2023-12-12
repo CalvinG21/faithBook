@@ -123,6 +123,8 @@ This version will not be released to the public.
 2.5.3 mongoDbConnStr="mongodb+srv://calvin:test1234@cluster0.65qmcdz.mongodb.net/" //this is an example, sign up with mongo db atlas 
 2.5.4 emailSupportName="calvinsg7777@gmail.com" //this is an example, sign up with gmail and get started
 2.5.5 emailSupportPassword="dlah cchy mgkz isjd" //this is an example, sign up with gmail and get started
+2.6 set up frontends proxy server to be express app running on your local machine. In frontend,go to package.json & update "proxy": "http://localhost:3000" or "proxy": "http://localhost:expressServerPort" . Depending if you launching frontend from react dev server or you building react and serving it from express server.
+2.7 In the frontend's Home.js component, update line 28 so that web-socket connects to the express web server (ip address & port) on your local machine!
 
 # Security
 
