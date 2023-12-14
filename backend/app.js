@@ -234,3 +234,6 @@ const HOST = '10.0.0.149'; //192.168.0.174 //10.0.0.149
 server.listen(PORT,  () => {
     console.log(`express web application NOW running on http://:${PORT}`);
 });
+
+// Export the Express app
+module.exports = app;
