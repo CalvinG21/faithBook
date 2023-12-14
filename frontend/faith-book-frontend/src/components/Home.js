@@ -24,9 +24,13 @@ let Home=()=>{
     const handleCloseModal = () => setShowModal(false);
     
     // Initial dummy data
-    var HOST = location.origin.replace(/^http/, 'ws');
-    const socket = io(HOST);//use this for heroku deployment   //http://10.0.0.149:3001
-   
+    //******************************  Set up web socket for heroku deployment ****************************************************** */
+    // var HOST = location.origin.replace(/^http/, 'ws');
+    // const socket = io(HOST);//use this for heroku deployment   
+    //************************************************************************************* */
+
+    //Set up web socket for local deployment
+    const socket = io('http://localhost:3001');
     useEffect(() => {
         socket.on('mongoDbLiveUpdate', (data) => {
             dispatch(updateTestAndPrayerReqs({testAndPrayerReqs:data}))

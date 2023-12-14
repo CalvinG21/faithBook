@@ -36,6 +36,7 @@ const SignUpForm = () => {
           if (!response.ok) {
             // Handle error cases
             console.log('Failed to fetch data:', response.statusText);
+            console.log(response.json())
             alert("Failed to sign up!")
             return;
           }

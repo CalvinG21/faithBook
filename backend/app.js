@@ -16,8 +16,7 @@ const booksOfBible=require('./libBooksOdBible');
 const dotenv = require('dotenv');
 dotenv.config();
 
-console.log(booksOfBible)
-
+//console.log(booksOfBible)
 if (process.env.NODE_ENV === 'production') {
     console.log(__dirname);
     let frontendPath = path.join(__dirname, 'build');

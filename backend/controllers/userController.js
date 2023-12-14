@@ -60,13 +60,13 @@ exports.saveNewUser=async(req,res)=>{
                 await exports.login(req,res)
             } catch (error) {
                 console.log(error)
-                res.status(400).send({"error1":error})
+                res.status(400).json({"error1":error})
             }
             
         })():
         err?
         (()=>{
-            res.status(400).send({"error2":err})
+            res.status(400).json({"error2":err})
         })():
         (()=>{
             console.log("error3")
