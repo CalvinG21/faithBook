@@ -143,4 +143,4 @@ The solution was deployed on heroku cloud. The frontend and backend both reside 
 # Testing
 
 Express API was tested using mocha and chai.
-React was tested using Unit Tests and Snapshot tests
+React Frontend was tested using Unit Tests and Snapshot tests
