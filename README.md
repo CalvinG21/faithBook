@@ -141,8 +141,3 @@ Mongo DB Changes streams to get notifications when any changes(CRUD events) are 
 # Deployment
 
 The solution was deployed on heroku cloud. The frontend and backend both reside in one projectect folder on heroku.The design was a safe play to limit/lessen the unknown security risks that come with communications between components from seperate cloud platforms.
-
-# Testing
-
-Express API was tested using mocha and chai.
-React was tested using Unit Tests and Snapshot tests
