@@ -81,7 +81,7 @@ Usability
 
 \*When testing to see live updates between Admin users making changes to general users content Or to test test live updates between general users. Then try and login into web app on 2 seperate brower instances or 2 different browsers. See attached image
 
-*Please use legit emails to ensure that you can see email communication between admin users.
+\*Please use legit emails to ensure that you can see email communication between admin users.
 
 # How to use the app as end General user
 
@@ -120,11 +120,13 @@ This version will not be released to the public.
 2.5 create an .env file in your backend directory and add the following variables in file. Kindly note that .env file will not be provided in github codebase. .env file be present in my dropbox for reviewers and not to public!
 2.5.1 X_RapidAPI_Key='24eaa05faa3mshc509b8103dd269ep1731e6jsnda75783619ba' //this is an example, sign up with rapidApi and get started
 2.5.2 X_RapidAPI_Host="iq-bible.p.rapidapi.com" //this is an example, sign up with rapidApi and get started
-2.5.3 mongoDbConnStr="mongodb+srv://calvin:test1234@cluster0.65qmcdz.mongodb.net/" //this is an example, sign up with mongo db atlas 
+2.5.3 mongoDbConnStr="mongodb+srv://calvin:test1234@cluster0.65qmcdz.mongodb.net/" //this is an example, sign up with mongo db atlas
 2.5.4 emailSupportName="calvinsg7777@gmail.com" //this is an example, sign up with gmail and get started
 2.5.5 emailSupportPassword="dlah cchy mgkz isjd" //this is an example, sign up with gmail and get started
-2.6 set up frontends proxy server to be express app running on your local machine. In frontend,go to package.json & update "proxy": "http://localhost:3000" or "proxy": "http://localhost:expressServerPort" . Depending if you launching frontend from react dev server or you building react and serving it from express server.
-2.7 In the frontend's Home.js component, update line 28 so that web-socket connects to the express web server (ip address & port) on your local machine!
+2.5.\* PS if you have access to my drop box then env file pre configured is located there !!!.
+2.6 set up frontends proxy server to be express app running on your local machine. In frontend,go to package.json & update "proxy": "http://localhost:3001" or "proxy": "http://localhost:expressServerPort" . Depending if you launching frontend from react dev server or you building react and serving it from express server.
+I recommend building the backend only nd not the frontend, as backend has a react frontend app pre-built and is serving the frontend on localhost:3001.
+2.7 In the frontend's Home.js component, update line 28 so that web-socket connects to the express web server (ip address & port) on your local machine! \* Might already be catered for!!!
 
 # Security
 
@@ -139,3 +141,8 @@ Mongo DB Changes streams to get notifications when any changes(CRUD events) are 
 # Deployment
 
 The solution was deployed on heroku cloud. The frontend and backend both reside in one projectect folder on heroku.The design was a safe play to limit/lessen the unknown security risks that come with communications between components from seperate cloud platforms.
+
+# Testing
+
+Express API was tested using mocha and chai.
+React was tested using Unit Tests and Snapshot tests

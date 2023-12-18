@@ -1,7 +1,7 @@
+import React, { useState, useEffect, useRef } from 'react';
 import Card from 'react-bootstrap/Card';
-import { Form, Button, Col, Row, Container } from 'react-bootstrap';
-import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from "react-redux";
+import { Button } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
 import { Helmet } from 'react-helmet';
 
 let DailyScripture=(props)=>{
@@ -10,13 +10,13 @@ let DailyScripture=(props)=>{
     let [bibleChapAudio1,setBibleChapAudio1]=useState(props.bibleChapter.audio)
     let [bibleChapName1,setBibleChapName1]=useState(props.bibleChapter.bookName)
     let bibleChapter =useSelector((state)=>state.bibleChap.value)
-    
-   
+    const audioRef = useRef(null);
+    const [isPlaying, setIsPlaying] = useState(false);
+
     //on start up get bible chapter frm backend
     useEffect(()=>{
       console.log("getBibleChapter()")
       getBibleChapter()
-      
     },[])
 
     useEffect(()=>{
@@ -38,13 +38,17 @@ let DailyScripture=(props)=>{
     
     //start/stop playing audio file
     let stopStartAudio=() => {
+      console.log("stopStartAudio()")
+      const audio = audioRef.current;
       if (audio.paused) {
           audio.play();
-          playButton.textContent = "Pause";
+          //playButton.textContent = "Pause";
       } else {
           audio.pause();
-          playButton.textContent = "Play";
+          //playButton.textContent = "Play";
       }
+      setIsPlaying(!isPlaying);
+      console.log("isPlaying : "+isPlaying)
     }        
 
     let getBibleChapter= async ()=>{
@@ -102,8 +106,8 @@ let DailyScripture=(props)=>{
           </Card.Body>
           <Card.Body>
             <div>
-                <h6>Click the button to play audio:</h6>
-                <audio id="audio" controls>
+                <h6>Click button below to play/pause audio:</h6>
+                <audio id="audio" ref={audioRef} controls>
                   {bibleChapAudio1!=undefined || bibleChapAudio1!=null ? (
                     <source src={bibleChapAudio1} type="audio/mpeg" />
                   ) : (
@@ -112,8 +116,11 @@ let DailyScripture=(props)=>{
                 </audio>
 
             </div>
-                
-        <Button onClick={stopStartAudio} id="playButton">Play</Button>
+          {bibleChapAudio1!=undefined || bibleChapAudio1!=null ? (
+                    <Button onClick={stopStartAudio} id="playButton">{isPlaying ? 'Pause' : 'Play'}</Button>
+                  ) :(<p>No Bible Content Was Loaded!</p>)
+          }      
+        
           </Card.Body>
         </Card>
         <Helmet>

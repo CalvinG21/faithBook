@@ -38,7 +38,7 @@ const LoginForm = (props) => {
     event.preventDefault();
 
     // Here you can perform the login logic, such as sending a request to your server
-    console.log('Login submitted:', { username, password });
+    console.log('Login submitted:');
     try {
       const response = await fetch('/user/login', {
         method: 'POST',
