@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 // Importing the action creators we’ve implemented in our counter reducer.
 import { reset,updateLoginUser } from '../redux/bibleVerseUpdateStore'
+import {  Link } from "react-router-dom";
 
 const LoginForm = (props) => {
 
@@ -121,7 +122,8 @@ const LoginForm = (props) => {
                         <Col>
                         <p>
                             Don't have an account yet?{' '}
-                            <a href="/">Let's get you signed up</a>
+                            
+                             <Link to="/signUp" className='mx-1'>Let's get you signed up</Link>
                         </p>
                         </Col>
                     </Row>
