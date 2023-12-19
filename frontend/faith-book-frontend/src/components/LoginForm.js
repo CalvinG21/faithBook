@@ -71,7 +71,7 @@ const LoginForm = (props) => {
       
     
     } catch (error) {
-      console.error('Error:', error.message);
+      console.log('Error:', error.message);
       alert("Failed to login. "+JSON.stringify(error.message))
     }
   };
