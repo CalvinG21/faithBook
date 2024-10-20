@@ -1,3 +1,99 @@
+Skip to content
+Navigation Menu
+CalvinG21
+/
+faithBook
+
+Type / to search
+Code
+Issues
+Pull requests
+Actions
+Projects
+Wiki
+Security
+Insights
+Settings
+ The password you provided is in a list of passwords commonly used on other websites. To increase your security, you must update your password. After November 17, 2024 we will automatically reset your password. Change your password on the settings page.
+
+Read our documentation on safer password practices.
+
+Editing README.md in faithBook
+BreadcrumbsfaithBook
+/
+README.md
+in
+main
+
+Edit
+
+Preview
+Indent mode
+
+Spaces
+Indent size
+
+2
+Line wrap mode
+
+Soft wrap
+Editing README.md file contents
+Selection deleted
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
 ## FaithBook
 
 # Intro
@@ -53,96 +149,8 @@ Search and Navigation
 1. Implement a Basic search.
 2. User-friendly navigation to easily switch between home page,journaling Page or public posted testimonies and prayer requests
 
-Non-Functional Requirements
-
-Performance
-
-1. The application should load quickly and be responsive, even with many tasks and users.
-2. Optimize server-side and client-side performance to reduce latency.
-
-Security
-
-1. Ensure data encryption to protect user information and task details.
-2. Guard against common security vulnerabilities (e.g., XSS, CSRF).
-
-Reliability
-
-1. High availability with minimal downtime for critical tasks.
-2. Regular data backups and a disaster recovery plan.
-3. The application should be able to scale as the user base grows.
-4. Ensure cross-browser compatibility (e.g., Chrome, Firefox, Safari, Edge).
-5. Compatibility with different operating systems and devices.
-
-Usability
-
-1. The user interface should be intuitive and user-friendly.
-2. Support for multiple languages and accessibility standards.
-3. Ability to integrate with third-party tools and services (e.g email, API).
-
-\*When testing to see live updates between Admin users making changes to general users content Or to test test live updates between general users. Then try and login into web app on 2 seperate brower instances or 2 different browsers. See attached image
-
-\*Please use legit emails to ensure that you can see email communication between admin users.
-
-# How to use the app as end General user
-
-1.access the website : https://faithbook101-e17cd9d2f94b.herokuapp.com/
-2.Create an account by signing up (click navbar link)
-2.1.provide a username,email adressand password
-3.login into your existing account
-4.Laning on the home page ,you can :
-4.1 Read a chapter of the bible(updated everyday at 11.59 pm)
-4.2 check out the Prayer requests and testomonies of other users
-4.3 add your own Prayer requests and testomonies
-4.4 send a personal preyer request or seek advice on matter via our email support
-
-# How to use the app as end Admin user
-
-This version will not be released to the public.
-1 access the website : https://faithbook101-e17cd9d2f94b.herokuapp.com/ 2. login with Admin creds below/ admin accounts are seeded in the database.
-2.1 username : mrAdmin
-2.2 password : Password1
-2.3 Admins can view all users posts with the ability to edit the content of a post,suspend the post or perminently delete the post.
-2.4 login to differnent user/ admin accounts in different browsers/ browser instances.
-
-# How to use the app a developer(on local machine)
-
-This version will not be released to the public.
-1 checkout project from git
-2.1 navigate to project root folder
-2.2 run commands:
-2.2.1 'cd fronted'
-2.2.2 'cd faith-book-frontend'
-2.2.3 'npm i'
-2.3 nav back to root folder
-2.4 run commands:
-2.4.1 'cd backend'
-2.4.2 'npm i'
-2.5 create an .env file in your backend directory and add the following variables in file. Kindly note that .env file will not be provided in github codebase. .env file be present in my dropbox for reviewers and not to public!
-2.5.1 X_RapidAPI_Key='24eaa05faa3mshc509b8103dd269ep1731e6jsnda75783619ba' //this is an example, sign up with rapidApi and get started
-2.5.2 X_RapidAPI_Host="iq-bible.p.rapidapi.com" //this is an example, sign up with rapidApi and get started
-2.5.3 mongoDbConnStr="mongodb+srv://calvin:test1234@cluster0.65qmcdz.mongodb.net/" //this is an example, sign up with mongo db atlas
-2.5.4 emailSupportName="calvinsg7777@gmail.com" //this is an example, sign up with gmail and get started
-2.5.5 emailSupportPassword="dlah cchy mgkz isjd" //this is an example, sign up with gmail and get started
-2.5.\* PS if you have access to my drop box then env file pre configured is located there !!!.
-2.6 set up frontends proxy server to be express app running on your local machine. In frontend,go to package.json & update "proxy": "http://localhost:3001" or "proxy": "http://localhost:expressServerPort" . Depending if you launching frontend from react dev server or you building react and serving it from express server.
-I recommend building the backend only nd not the frontend, as backend has a react frontend app pre-built and is serving the frontend on localhost:3001.
-2.7 In the frontend's Home.js component, update line 28 so that web-socket connects to the express web server (ip address & port) on your local machine! \* Might already be catered for!!!
-
-# Security
-
-API Keys & Connection strings have been stored as environment variables on the heroku cloud.
-For Local development I have provided my .env file in the dropbox folder containing all API Keys & Connection strings. Users Passwords have been salted and enncrypted when stored in the database & will be decrypted when confirming user authentication.
-
-# 3rd Party APIs
-
-Used Rapid API & IQ Bible API was used to get the daily bible chapter text and the audio track.
-Mongo DB Changes streams to get notifications when any changes(CRUD events) are made to a collection on the mongo cloud.
-
-# Deployment
-
-The solution was deployed on heroku cloud. The frontend and backend both reside in one projectect folder on heroku.The design was a safe play to limit/lessen the unknown security risks that come with communications between components from seperate cloud platforms.
-
-# Testing
-
-Express API was tested using mocha and chai.
-React was tested using Unit Tests and Snapshot tests
+For Local development I have provided my .env file in the dropbox folder containing all API Keys & Connection strings. Users Passwords have been salted and encrypted when stored in the database & will be decrypted when confirming user authentication.
+Use Control + Shift + m to toggle the tab key moving focus. Alternatively, use esc then tab to move to the next interactive element on the page.
+No file chosen
+Attach files by dragging & dropping, selecting or pasting them.
+Editing faithBook/README.md at main · CalvinG21/faithBook
